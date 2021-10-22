@@ -40,7 +40,7 @@ public abstract class Book {
         return category;
     }
 
-    @Override
+/*    @Override
     public String toString() {
         return "Book{" +
                 "\n ISBN='" + ISBN + '\'' +
@@ -49,7 +49,9 @@ public abstract class Book {
                 ",\n author=" + author +
                 ",\n category=" + category +
                 "\n}";
-    }
+    }*/
 
     public abstract void setIssueDate();
+
+    public abstract Account getIssuer();
 }

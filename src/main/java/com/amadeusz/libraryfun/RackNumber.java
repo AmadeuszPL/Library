@@ -12,4 +12,11 @@ public class RackNumber {
                 "Bookcase: " + locationCode.substring(2,4)
                 + " Shelf: " + locationCode.substring(4,6)  );
     }
+
+    @Override
+    public String toString() {
+        return "RackNumber{" +
+                "locationCode='" + locationCode + '\'' +
+                '}';
+    }
 }

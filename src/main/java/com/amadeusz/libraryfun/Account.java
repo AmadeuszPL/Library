@@ -12,6 +12,10 @@ public abstract class Account {
         this.person = person;
     }
 
+    public Person getPerson() {
+        return person;
+    }
+
     @Override
     public String toString() {
         return "Account{" +

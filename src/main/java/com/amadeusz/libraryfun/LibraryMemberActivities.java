@@ -3,6 +3,6 @@ package com.amadeusz.libraryfun;
 import java.util.Map;
 
 public interface LibraryMemberActivities {
-    void checkOutBookByISBN(Map<String, BookItem> db, String ISBN);
-    void reserveBookByISBN(Map<String, BookItem> db, String ISBN);
+    boolean checkOutBookByISBN(Map<Double, BookItem> db, double barcode);
+    void reserveBookByISBN(Map<Double, BookItem> db, double barcode);
 }
