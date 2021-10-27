@@ -1,11 +1,8 @@
 package com.amadeusz.libraryfun;
 
-import com.sun.source.tree.LambdaExpressionTree;
-
 import java.util.Map;
-import java.util.stream.Collectors;
 
-public class Librarian extends Account implements LibrarianActivities{
+public class Librarian extends Account implements LibrarianActivities {
 
     public Librarian(String login, String password, Person person) {
         super(login, password, person);
@@ -13,14 +10,15 @@ public class Librarian extends Account implements LibrarianActivities{
 
     @Override
     public boolean addBook(InMemoryBookRepository repository, BookItem book) {
-        if (repository != null && book != null){
-            repository.updateRepository(book);
-            return true;
-        }
         return false;
     }
 
     @Override
+    public Person checkWhoIssuedBook(Map<String, BookItem> db, String ISBN) {
+        return null;
+    }
+
+/*    @Override
     public Person checkWhoIssuedBook(Map<String, BookItem> db,
                                             String ISBN) {
         BookItem book = db.get(ISBN);
@@ -29,9 +27,14 @@ public class Librarian extends Account implements LibrarianActivities{
             return null;
         }
         return userAccount.getPerson();
-    }
+    }*/
 
     @Override
+    public void printUserIssuedBooks(Map<String, BookItem> db, LibraryMember libraryMember) {
+
+    }
+
+ /*   @Override
     public void printUserIssuedBooks(Map<String, BookItem> db,
                                      LibraryMember libraryMember) {
         db.entrySet().stream()
@@ -44,5 +47,5 @@ public class Librarian extends Account implements LibrarianActivities{
             if (item.getIssuer() != null && item.getIssuer().getPerson().equals(libraryMember.getPerson()))
                 System.out.println(item.getISBN() + " " + item.getTitle());
         }*/
-    }
 }
+

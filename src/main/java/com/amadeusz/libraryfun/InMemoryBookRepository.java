@@ -1,26 +1,84 @@
 package com.amadeusz.libraryfun;
 
-import javax.lang.model.type.ArrayType;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
-public class InMemoryBookRepository implements BookRepository {
+class InMemoryBookRepository implements BookRepository {
 
-    public static int countBooks;
-    private Map<String, List> bookTitles = new HashMap<>();
-    private Map<String, List> bookAuthors = new HashMap<>();
-    private Map<SubjectCategory, List> bookCategories = new HashMap<>();
-    private Map<Integer, List> bookPublicationYear = new HashMap<>();
-    private BookItem temporaryBookItem;
+    private static int countBooks;
+    private Map<UUID, BookItem> repository;
 
-
-    public void updateRepository(BookItem bookItem) {
-        temporaryBookItem = bookItem;
-        updateBookTitles();
-        updateBookAuthors();
-        updateBookCategories();
-        updateBookPublicationYear();
+    InMemoryBookRepository() {
+        this.repository = new HashMap<>();
     }
 
+    @Override
+    public void addBook(BookItem bookitem) {
+        repository.put(bookitem.getId(), bookitem);
+    }
+
+    @Override
+    public void deleteBookUsingId(UUID id) {
+        repository.remove(id);
+    }
+
+    @Override
+    public Map<UUID, BookItem> searchByTitle(String title) {
+        Map<UUID, BookItem> booksByTitle = new HashMap<>();
+        for (Map.Entry<UUID, BookItem> repositoryEntry : repository.entrySet()) {
+            if (repositoryEntry.getValue().getTitle().contains(title)) {
+                booksByTitle.put(repositoryEntry.getKey(), repositoryEntry.getValue());
+            }
+        }
+        return booksByTitle;
+    }
+
+    @Override
+    public Map<UUID, BookItem> searchByCategory(Book.SubjectCategory subjectCategory) {
+        Map<UUID, BookItem> booksByCategory = new HashMap<>();
+        repository.entrySet().stream()
+                .filter(entry -> entry.getValue().getCategory().equals(subjectCategory))
+                .forEach(entry -> booksByCategory.put(entry.getKey(),
+                        entry.getValue()));
+        return booksByCategory;
+    }
+
+    @Override
+    public Map<UUID, BookItem> searchByAuthor(String author) {
+        Map<UUID, BookItem> booksByAuthor = new HashMap<>();
+        for (Map.Entry<UUID, BookItem> repositoryEntry : repository.entrySet()) {
+            if (repositoryEntry.getValue().getAuthor().equals(author)) {
+                booksByAuthor.put(repositoryEntry.getKey(),
+                        repositoryEntry.getValue());
+            }
+        }
+        return booksByAuthor;
+    }
+
+    @Override
+    public Map<UUID, BookItem> searchByYear(int year) {
+        Map<UUID, BookItem> booksByYear = new HashMap<>();
+        repository.entrySet().stream()
+                .filter(entry -> (entry.getValue().getYear() == year))
+                .forEach(entry -> booksByYear.put(entry.getKey(), entry.getValue()));
+        return booksByYear;
+    }
+
+    @Override
+    public Optional<BookItem> searchById(UUID bookId) {
+        return repository.values().stream()
+                .filter(bookItem -> bookItem.getId().equals(bookId))
+                .findFirst();
+    }
+
+    @Override
+    public String toString() {
+        return "InMemoryBookRepository{\n" + repository.values() + '}';
+    }
+
+    /*
     private void updateBookPublicationYear() {
         if (bookPublicationYear.containsKey(temporaryBookItem.getPublicationYear())) {
             List list = bookPublicationYear.get(temporaryBookItem.getPublicationYear());

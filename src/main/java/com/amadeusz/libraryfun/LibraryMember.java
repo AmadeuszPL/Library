@@ -1,9 +1,6 @@
 package com.amadeusz.libraryfun;
 
-import java.time.LocalDate;
-import java.util.Map;
-
-public class LibraryMember extends Account implements LibraryMemberActivities {
+class LibraryMember extends Account {
 
     int totalBooksCheckedOut;
 
@@ -11,7 +8,20 @@ public class LibraryMember extends Account implements LibraryMemberActivities {
         super(login, password, person);
     }
 
-    @Override
+    public int getTotalBooksCheckedOut() {
+        return totalBooksCheckedOut;
+    }
+
+    public void addOneBook() {
+        totalBooksCheckedOut++;
+    }
+
+    public void subtractOneBook() {
+        totalBooksCheckedOut--;
+    }
+
+
+    /*   @Override
     public boolean checkOutBookByISBN(Map<Double, BookItem> db,
                                       double barcode) {
         if (bookLimitReached()) {
@@ -69,5 +79,5 @@ public class LibraryMember extends Account implements LibraryMemberActivities {
 
     public void incrementTotalBooksCheckedOut(){
         totalBooksCheckedOut++;
-    }
+    }*/
 }

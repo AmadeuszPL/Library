@@ -1,127 +1,169 @@
 package com.amadeusz.libraryfun;
 
+import java.util.UUID;
+
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Adress mickiewicz12 = new Adress("Mickiewicza 12", "Nysa",
                 "48-300", "Poland");
+        Adress broniewskiego7 = new Adress("Broniewskiego 7", "Nysa",
+                "48-304", "Poland");
+
+
         Person janKowalski = new Person("Jan Kowalski", mickiewicz12, "jk@o2" +
                 ".pl", "550423455345652");
-        Librarian bibliotekarz = new Librarian("janKowalski69", "Kowal123",
-                janKowalski);
-
-        Adress broniewskiego4 = new Adress("Broniewskiego 4", "Nysa",
-                "48-300", "Poland");
-        Person piotrNowak = new Person("Piotr Nowak", broniewskiego4, "p@m",
+        Person piotrNowak = new Person("Piotr Nowak", broniewskiego7, "p@m",
                 "52352363464577");
-        LibraryMember uczestnik = new LibraryMember("piotrNowak55",
+
+
+        Account bibliotekarz = new Librarian("janKowalski69", "Kowal123",
+                janKowalski);
+        LibraryMember bibliotekarzJakoCzlonek = new LibraryMember("janKowalski69",
+                "Kowal123",
+                janKowalski);
+        LibraryMember czlonek = new LibraryMember("piotrNowak55",
                 "Nowak123", piotrNowak);
 
-        System.out.println(bibliotekarz);
-        System.out.println();
+        AccountsRepository accountsRepository =
+                                            new InMemoryAccountsRepository();
 
-        InMemoryBookRepository bookRepository = new InMemoryBookRepository();
+        accountsRepository.addUserAccount(czlonek);
+        accountsRepository.addUserAccount(bibliotekarz);
+        accountsRepository.addUserAccount(bibliotekarzJakoCzlonek);
+
+        System.out.println("-----PRINT CONTENT OF ACCOUNTS REPOSITORY------");
+        System.out.println(accountsRepository);
+        System.out.println();
 
         Author adamMickiewicz = new Author("Adam Mickiewicz", 1765);
         Author henrykSienkiewicz = new Author("Henryk Sienkiewicz", 1821);
         Author olgaTokarczuk = new Author("Olga Tokarczuk", 1978);
-        Author galAnonim = new Author("Gal Anonim", 980);
+//        Author galAnonim = new Author("Gal Anonim", 980);
 
-        BookItem panTadeusz = new BookItem(010010101000d, "274637283940",
-                "Pan Tadeusz",
-                1965,
-                adamMickiewicz, SubjectCategory.HISTORICAL_FICTION,
-                new RackNumber("123345"));
+        ISBN sampleISBN = ISBN.of("97 8 0 3 0 6 4 -0-6-----157");
+        ISBN sampleISBN2 = ISBN.of("978-3-16-1484----10-0");
 
-        BookItem panTadeusz2 = new BookItem(540010101000d, "984592736483",
-                "Pan Tadeusz",
-                1965,
-                adamMickiewicz, SubjectCategory.HISTORICAL_FICTION,
-                new RackNumber("458832"));
+        Book panTadeusz = new Book(ISBN.of("0123456789"), "Pan " +
+                "Tadeusz", 1923, adamMickiewicz, Book.SubjectCategory.HISTORICAL_FICTION);
+        Book wPustyni = new Book(sampleISBN, "W pustyni i w puszczy", 1843,
+                henrykSienkiewicz, Book.SubjectCategory.LITERALLY_FICTION);
+        Book bieguni = new Book(sampleISBN2, "Bieguni", 2007, olgaTokarczuk,
+                Book.SubjectCategory.MYSTERY);
 
-        BookItem wPustyni = new BookItem(660010101000d, "21113455363", "W " +
-                "Pustyni i w " +
-                "Puszczy", 1877, henrykSienkiewicz,
-                SubjectCategory.ADVENTURE, new RackNumber("135531"));
-
-        BookItem bieguni = new BookItem(770010101000d, "765838292466",
-                "Bieguni", 2007,
-                olgaTokarczuk, SubjectCategory.MYSTERY, new RackNumber(
-                "330956"));
-
-        BookItem kronikaPolska = new BookItem(890010101000d, "17758392039",
-                "Kroniki Galla " +
-                        "Anonima", 1040, galAnonim,
-                SubjectCategory.HISTORICAL_FICTION, new RackNumber("110094"));
-
-        BookItem kosciUmarlych = new BookItem(990010101000d, "998877665544",
-                "Prowadz swoj " +
-                        "plog przez kosci umarlych", 2009, olgaTokarczuk,
-                SubjectCategory.LITERALLY_FICTION, new RackNumber("110094"));
+        BookItem panTadeuszBookItem = new BookItem(panTadeusz,
+                new RackNumber("123456"));
+        BookItem panTadeusz2 = new BookItem(panTadeusz, new RackNumber(
+                "883345"));
+        BookItem wPustyniBookItem = new BookItem(wPustyni,
+                new RackNumber("456789"));
+        BookItem wPustyni2 = new BookItem(wPustyni, new RackNumber("884433"));
+        BookItem bieguniBookItem = new BookItem(bieguni, new RackNumber(
+                "445523"));
+        BookItem bieguniBookItem2 = new BookItem(bieguni, new RackNumber(
+                "445593"));
 
 
-        bibliotekarz.addBook(bookRepository, panTadeusz);
-        bibliotekarz.addBook(bookRepository, panTadeusz2);
-        bibliotekarz.addBook(bookRepository, wPustyni);
-        bibliotekarz.addBook(bookRepository, bieguni);
-        bibliotekarz.addBook(bookRepository, kronikaPolska);
-        bibliotekarz.addBook(bookRepository, kosciUmarlych);
+        BookRepository bookRepository = new InMemoryBookRepository();
 
+        bookRepository.addBook(panTadeuszBookItem);
+        bookRepository.addBook(panTadeusz2);
+        bookRepository.addBook(wPustyniBookItem);
+        bookRepository.addBook(wPustyni2);
+        bookRepository.addBook(bieguniBookItem);
+        bookRepository.addBook(bieguniBookItem2);
+        bookRepository.deleteBookUsingId(panTadeusz2.getId());
+
+        System.out.println("-------- PRINT BOOK REPOSITORY -------");
+        System.out.println(bookRepository);
         System.out.println();
 
-        System.out.println("Search by title");
-
-        bookRepository.searchByTitle("Pan Tadeusz");
-
-        System.out.println();
-        System.out.println("Search by subject");
-        bookRepository.searchByCategory(SubjectCategory.HISTORICAL_FICTION);
-        System.out.println();
-        System.out.println("Search by Author");
-        bookRepository.searchByAuthor("Adam Mickiewicz");
-        System.out.println();
-        System.out.println("Search by Publication Year");
-        bookRepository.searchByYear(1965);
+        System.out.println("-------- SEARCH BY TITLE -------");
+        System.out.println(bookRepository.searchByTitle("Pan Tadeusz").values());
         System.out.println();
 
-        System.out.println(InMemoryBookRepository.countBooks);
-
-        bookRepository.getBooks();
-
-         System.out.println("Renting books with ISBN 984592736483 and " +
-                "21113455363 by Piotr Nowak");
-
-
-        uczestnik.checkOutBookByISBN(bookRepository.getBooks(),010010101000d);
-        uczestnik.checkOutBookByISBN(bookRepository.getBooks(),540010101000d);
-        uczestnik.checkOutBookByISBN(bookRepository.getBooks(),660010101000d );
-        uczestnik.checkOutBookByISBN(bookRepository.getBooks(), 770010101000d);
-        uczestnik.checkOutBookByISBN(bookRepository.getBooks(), 890010101000d);
-        uczestnik.reserveBookByISBN(bookRepository.getBooks(), 990010101000d);
-        uczestnik.checkOutBookByISBN(bookRepository.getBooks(), 990010101000d);
-        uczestnik.reserveBookByISBN(bookRepository.getBooks(), 990010101000d);
-        uczestnik.checkOutBookByISBN(bookRepository.getBooks(), 990010101000d);
-
+        System.out.println("-------- SEARCH BY CATEGORY -------");
+        System.out.println(bookRepository.searchByCategory(Book.SubjectCategory.HISTORICAL_FICTION).values());
         System.out.println();
 
-        /*System.out.println("Librarian checking who rented book with ISBN " +
-                "21113455363");
-        Person renter = bibliotekarz.checkWhoIssuedBook(bookRepository.getDb(),
-                "21113455363");
-        System.out.println(renter);
+        System.out.println("-------- SEARCH BY YEAR -------");
+        System.out.println(bookRepository.searchByYear(1923).values());
+        System.out.println();
 
+        System.out.println("-------- SEARCH BY AUTHOR -------");
+        System.out.println(bookRepository.searchByAuthor("Adam Mickiewicz").values());
+        System.out.println();
+
+        BookIssueRepository issueRepository = new InMemoryBookIssueRepository();
+
+        System.out.println("-------RESERVING ALL BOOKS NAMED Herr " +
+                "Tadeusz--------");
+        for (BookItem bookItem :
+                bookRepository.searchByTitle("Pan Tadeusz").values()) {
+            System.out.println("Reserving: " + bookItem);
+            issueRepository.addIssue(new BookIssue(bookItem.getId(),
+                    BookIssue.BookStatus.RESERVED), czlonek);
+        }
+        System.out.println();
+
+        System.out.println("----- EXTENDING RESERVATION TIME -----");
+        System.out.println("Reserving: " + panTadeuszBookItem);
+        issueRepository.addIssue(new BookIssue(panTadeuszBookItem.getId(),
+                BookIssue.BookStatus.RESERVED), czlonek);
+        System.out.println();
+
+        System.out.println("-----TRYING TO LOAN ALL THE BOOKS WITH TITLE " +
+                "CONTAINING i-----");
+        for (BookItem bookItem : bookRepository.searchByTitle("i").values()) {
+            System.out.println("Loaning: " + bookItem);
+            System.out.println();
+            issueRepository.addIssue(new BookIssue(bookItem.getId(),
+                    BookIssue.BookStatus.LOANED), czlonek);
+        }
+
+        bookRepository.addBook(panTadeusz2);
+        issueRepository.addIssue(new BookIssue(panTadeusz2.getId(),
+                BookIssue.BookStatus.LOANED), bibliotekarzJakoCzlonek);
 
         System.out.println();
-        System.out.println("Print books Issueed by Piotr Nowak");
+        System.out.println("--------PRINT WHOLE ISSUE REPOSITORY-------");
+        System.out.println(issueRepository);
+        System.out.println();
 
-        bibliotekarz.printUserIssuedBooks(bookRepository.getDb(), uczestnik);
 
+        System.out.println("----- RENTING Pan Tadeusz -----");
+        System.out.println("Reserving: " + panTadeuszBookItem);
+        issueRepository.addIssue(new BookIssue(panTadeuszBookItem.getId(),
+                BookIssue.BookStatus.LOANED), czlonek);
 
+        System.out.println("----- RENTING Pan Tadeusz (different user) -----");
+        System.out.println("Reserving: " + panTadeuszBookItem);
+        issueRepository.addIssue(new BookIssue(panTadeuszBookItem.getId(),
+                BookIssue.BookStatus.LOANED), bibliotekarzJakoCzlonek);
+        System.out.println();
 
-        //System.out.println("Print book Location using Rack Number");
-        //panTadeusz.getRackNumber().printBookLocation();
-	// write your code here*/
+        System.out.println("---------- Check who took book by Book ID " +
+                "--------");
+        UUID searchedUser =
+                issueRepository.whoTookBookID(panTadeuszBookItem.getId());
+
+        System.out.println(accountsRepository.searchUserById(searchedUser));
+        System.out.println();
+
+        System.out.println("---------- Check books took by user ----------");
+        for (UUID uuid : issueRepository.booksRentedByUser(czlonek)) {
+            System.out.println(bookRepository.searchById(uuid));
+        }
+
+        issueRepository.returnBook(panTadeusz2.getId(), bibliotekarzJakoCzlonek);
+        System.out.println(issueRepository);
+
+        System.out.println("----- TRYING TO RENT BOOK AS DIFFERENT USER -----");
+        issueRepository.addIssue(new BookIssue(panTadeusz2.getId(),
+                BookIssue.BookStatus.LOANED), bibliotekarzJakoCzlonek);
+
+        System.out.println(issueRepository);
     }
 
 }

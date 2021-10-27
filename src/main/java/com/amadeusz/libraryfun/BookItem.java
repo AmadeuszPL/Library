@@ -1,93 +1,65 @@
 package com.amadeusz.libraryfun;
 
-import java.time.LocalDate;
-import java.util.Objects;
+import net.sourceforge.barbecue.Barcode;
+import net.sourceforge.barbecue.BarcodeFactory;
+import net.sourceforge.barbecue.BarcodeImageHandler;
 
-public class BookItem extends Book {
-    private Double barcode;
-    private RackNumber rackNumber;
-    private BookStatus bookStatus;
-    private LocalDate issueDate;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
 
-    public Double getBarcode() {
-        return barcode;
-    }
+class BookItem {
 
-    private LocalDate dueDate;
-    private Account issuer;
+    private final UUID id;
+    private final Book book;
+    private final BufferedImage barcode;
+    private final RackNumber rackNumber;
 
-    public LocalDate getIssueDate() {
-        return issueDate;
-    }
-
-    public void setIssueDate() {
-        this.issueDate = LocalDate.now();
-    }
-
-    @Override
-    public Account getIssuer() {
-        return issuer;
-    }
-
-    public void setDueDateLoan() {
-        this.dueDate = LocalDate.now().plusDays(10);
-    }
-
-    public void setDueDateReserve() {
-        this.dueDate = LocalDate.now().plusDays(5);
-    }
-
-
-    public void setIssuer(Account issuer) {
-        this.issuer = issuer;
-    }
-
-    public BookStatus getBookStatus() {
-        return bookStatus;
-    }
-
-    public void setBookStatus(BookStatus bookStatus) {
-        this.bookStatus = bookStatus;
-    }
-
-    public BookItem(Double barcode, String ISBN, String title,
-                    int publicationYear,
-                    Author author, SubjectCategory category, RackNumber rackNumber) {
-        super(ISBN, title, publicationYear, author, category);
-        this.barcode = barcode;
+    BookItem(Book book, RackNumber rackNumber) throws Exception {
+        id = UUID.randomUUID();
+        this.book = book;
+        this.barcode = generateCode128BarcodeImage(book.getIsbn().getValue());
         this.rackNumber = rackNumber;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BookItem bookItem = (BookItem) o;
-        return barcode.equals(bookItem.barcode) && rackNumber.equals(bookItem.rackNumber) && bookStatus == bookItem.bookStatus && issueDate.equals(bookItem.issueDate) && dueDate.equals(bookItem.dueDate) && issuer.equals(bookItem.issuer);
+    public UUID getId() {
+        return id;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(barcode, rackNumber, bookStatus, issueDate, dueDate, issuer);
+    public Book.SubjectCategory getCategory() {
+        return book.getCategory();
+    }
+
+    public String getTitle() {
+        return book.getTitle();
+    }
+
+    public String getAuthor() {
+        return book.getAuthor().getName();
+    }
+
+    public int getYear() {
+        return book.getPublicationYear();
+    }
+
+
+    public static BufferedImage generateCode128BarcodeImage(String barcodeText) throws Exception {
+        Barcode barcode = BarcodeFactory.createCode128(barcodeText);
+        return BarcodeImageHandler.getImage(barcode);
+    }
+
+    public void printBarcodeToFile() throws IOException {
+        File outputfile =
+                new File("barcodes/" + book.getIsbn().getValue() + ".png");
+        ImageIO.write(barcode, "png", outputfile);
     }
 
     @Override
     public String toString() {
-        return "BookItem{" + super.getTitle() +
-                "barcode=" + barcode + "\n" +
-                '}';
+        return "BookItem{" +
+                "id=" + id + book +
+                "}\n";
     }
-
-    //this.borrowed = LocalDate.now();
-    //this.dueDate = borrowed.plusDays(30);
-
-/*    public RackNumber getRackNumber() {
-        return rackNumber;
-    }
-
-    public void checkOut(){
-        System.out.println(bookStatus);
-    }
-*/
-
 }

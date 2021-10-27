@@ -1,22 +1,27 @@
 package com.amadeusz.libraryfun;
 
-public class RackNumber {
+import org.apache.commons.lang3.math.NumberUtils;
+
+class RackNumber {
     private String locationCode;
 
-    public RackNumber(String locationCode) {
+    RackNumber(String locationCode) {
+        verifyRackNumber(locationCode);
         this.locationCode = locationCode;
     }
 
-    void printBookLocation(){
-        System.out.println("Room: " + locationCode.substring(0,2) + " " +
-                "Bookcase: " + locationCode.substring(2,4)
-                + " Shelf: " + locationCode.substring(4,6)  );
+    private void verifyRackNumber(String locationCode) {
+        if (locationCode.length() != 6 | !NumberUtils.isParsable(locationCode)) {
+            throw new RuntimeException("Wrong Rack Number");
+        }
     }
 
     @Override
     public String toString() {
         return "RackNumber{" +
-                "locationCode='" + locationCode + '\'' +
+                "Room: " + locationCode.substring(0, 2) + " " +
+                "Bookcase: " + locationCode.substring(2, 4)
+                + " Shelf: " + locationCode.substring(4, 6) + +
                 '}';
     }
 }

@@ -1,27 +1,24 @@
 package com.amadeusz.libraryfun;
 
-import java.util.ArrayList;
-import java.util.List;
+class Book {
 
-public abstract class Book {
+    private final ISBN isbn;
+    private final String title;
+    private final int publicationYear;
+    private final Author author;
+    private final SubjectCategory category;
 
-    private String ISBN;
-    private String title;
-    private int publicationYear;
-    private Author author;
-    private SubjectCategory category;
-
-
-    public Book(String ISBN, String title, int publicationYear, Author author, SubjectCategory category) {
-        this.ISBN = ISBN;
+    Book(ISBN isbn, String title, int publicationYear, Author author,
+         SubjectCategory category) {
+        this.isbn = isbn;
         this.title = title;
         this.publicationYear = publicationYear;
         this.author = author;
         this.category = category;
     }
 
-    public String getISBN() {
-        return ISBN;
+    public ISBN getIsbn() {
+        return isbn;
     }
 
     public String getTitle() {
@@ -40,18 +37,23 @@ public abstract class Book {
         return category;
     }
 
-/*    @Override
+    public enum SubjectCategory {
+
+        ACTION,
+        ADVENTURE,
+        COMIC_BOOK,
+        DETECTIVE,
+        MYSTERY,
+        FANTASY,
+        HISTORICAL_FICTION,
+        LITERALLY_FICTION
+
+    }
+
+    @Override
     public String toString() {
-        return "Book{" +
-                "\n ISBN='" + ISBN + '\'' +
-                ",\n title='" + title + '\'' +
-                ",\n publicationYear=" + publicationYear +
-                ",\n author=" + author +
-                ",\n category=" + category +
-                "\n}";
-    }*/
-
-    public abstract void setIssueDate();
-
-    public abstract Account getIssuer();
+        return "\nisbn=" + isbn +
+                ", title='" + title +
+                '}';
+    }
 }
