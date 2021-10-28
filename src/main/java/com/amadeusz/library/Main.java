@@ -173,7 +173,15 @@ public class Main {
         System.out.println(payment);
         System.out.println("Piotr Nowak fine: " + czlonek.getFine() + "$");
         System.out.println();
-        System.out.println("Number of books in repository :" + bookRepository.countBooks());
+        System.out.println("Number of books in repository: " + bookRepository.countBooks());
+        System.out.println();
+
+        issueRepository.addIssue(BookIssue.loan(panTadeusz2.getId()), czlonek);
+        issueRepository.reserveBook(panTadeusz2.getId(), bibliotekarzJakoCzlonek);
+        issueRepository.reserveBook(panTadeusz2.getId(), bibliotekarzJakoCzlonek);
+
+        System.out.println(issueRepository);
+
 
     }
 }

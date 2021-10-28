@@ -20,7 +20,7 @@ class InMemoryBookIssueRepository implements BookIssueRepository {
                 && bookIssue.getBookStatus().equals(BookIssue.BookStatus.LOANED)) {
             throw new IllegalArgumentException("Books limit reached");
         }
-        if (user.getFine() != null) {
+        if (user.getFine() != null && user.getFine() != BigDecimal.valueOf(0)) {
             throw new IllegalAccessException("You need to pay fine before " +
                     "renting more books.");
         }
@@ -61,9 +61,7 @@ class InMemoryBookIssueRepository implements BookIssueRepository {
     @Override
     public void returnBook(UUID bookId, LibraryMember user)
             throws IllegalAccessException {
-        if (issueRepository.get(bookId) == null) {
-            throw new NullPointerException("Book not in issue repository");
-        }
+        checkIfBookInRepository(bookId);
         BookIssue issue = issueRepository.get(bookId);
 
         if (issue.getIssuer().equals(user.getId())) {
@@ -76,7 +74,18 @@ class InMemoryBookIssueRepository implements BookIssueRepository {
             if (rentalTime > ConstantValues.MAX_LENDING_DAYS) {
                 long fine = (rentalTime - ConstantValues.MAX_LENDING_DAYS)
                         * ConstantValues.FINE_FOR_ONE_DAY_OF_RENTAL;
+                System.out.println("Book was returned after due date, you " +
+                        "need to pay fine!");
                 user.addFine(BigDecimal.valueOf(fine));
+            }
+            if (issue.getReservationStatus() == BookIssue.ReservationOfLoanedBookStatus.RESERVED) {
+                issue.setIssuer(issue.getBooker());
+                issue.setIssueDate(LocalDate.now());
+                issue.setBookStatus(BookIssue.BookStatus.RESERVED);
+                issue.setReservationStatus(null);
+                issue.setBooker(null);
+                System.out.println("Your book is avaliable - your reservation" +
+                        " is valid for 5 days from now.");
             }
             issue.setIssuer(null);
             issue.setBookStatus(BookIssue.BookStatus.AVAILABLE);
@@ -84,6 +93,12 @@ class InMemoryBookIssueRepository implements BookIssueRepository {
         } else {
             throw new IllegalAccessException("You cannot return book that " +
                     "was loaned by another user");
+        }
+    }
+
+    private void checkIfBookInRepository(UUID bookId) {
+        if (issueRepository.get(bookId) == null) {
+            throw new NullPointerException("Book not in issue repository");
         }
     }
 
@@ -108,6 +123,46 @@ class InMemoryBookIssueRepository implements BookIssueRepository {
             }
         }
         return list;
+    }
+
+    @Override
+    public void reserveBook(UUID bookId, LibraryMember user) throws IllegalAccessException {
+        checkIfBookInRepository(bookId);
+        BookIssue.BookStatus bookStatus = getBookStatus(bookId);
+        BookIssue.ReservationOfLoanedBookStatus reservationStatus =
+                getReservationStatus(bookId);
+        BookIssue bookIssue = issueRepository.get(bookId);
+
+        if (bookStatus.equals(BookIssue.BookStatus.LOANED)
+                && (reservationStatus == null ||
+        !(reservationStatus.equals(BookIssue.ReservationOfLoanedBookStatus.RESERVED)))) {
+            if (bookIssue.getBooker() != null && bookIssue.getBooker().equals(user.getId())) {
+                throw new IllegalAccessException("Book loaned by user cannot " +
+                        "be reserved by user");
+            }
+            bookIssue.setBooker(user.getId());
+            bookIssue.setReservationStatus(BookIssue.ReservationOfLoanedBookStatus.RESERVED);
+        } else if (reservationStatus.equals(BookIssue.ReservationOfLoanedBookStatus.RESERVED)) {
+            throw new IllegalAccessException("Book already reserved");
+        } else if (checkIfReservationExpired(bookId)) {
+            bookIssue.setIssueDate(LocalDate.now());
+            bookIssue.setIssuer(user.getId());
+        } else if (bookStatus.equals(BookIssue.BookStatus.AVAILABLE)) {
+            bookIssue.setIssueDate(LocalDate.now());
+            bookIssue.setIssuer(user.getId());
+            bookIssue.setBookStatus(BookIssue.BookStatus.RESERVED);
+        } else {
+            throw new IllegalAccessException("Book reserved wait until " +
+                    "reservation expires");
+        }
+    }
+
+    private BookIssue.BookStatus getBookStatus(UUID bookId) {
+        return issueRepository.get(bookId).getBookStatus();
+    }
+
+    private BookIssue.ReservationOfLoanedBookStatus getReservationStatus(UUID bookId) {
+        return issueRepository.get(bookId).getReservationStatus();
     }
 
     @Override

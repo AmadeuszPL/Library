@@ -36,6 +36,10 @@ class LibraryMember extends Account {
         }
     }
 
+    public CreditCard getCard() {
+        return card;
+    }
+
     public void clearFine() {
         this.fine = BigDecimal.valueOf(0);
     }

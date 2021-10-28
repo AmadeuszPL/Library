@@ -13,5 +13,7 @@ public interface BookIssueRepository {
 
     List<UUID> booksRentedByUser(LibraryMember user);
 
+    void reserveBook(UUID book, LibraryMember user) throws IllegalAccessException;
+
     void setAllRecordsRentalDataForTest();
 }
