@@ -1,4 +1,4 @@
-package com.amadeusz.libraryfun;
+package com.amadeusz.library;
 
 import java.util.UUID;
 
@@ -11,12 +11,10 @@ public class Main {
         Adress broniewskiego7 = new Adress("Broniewskiego 7", "Nysa",
                 "48-304", "Poland");
 
-
         Person janKowalski = new Person("Jan Kowalski", mickiewicz12, "jk@o2" +
                 ".pl", "550423455345652");
         Person piotrNowak = new Person("Piotr Nowak", broniewskiego7, "p@m",
                 "52352363464577");
-
 
         Account bibliotekarz = new Librarian("janKowalski69", "Kowal123",
                 janKowalski);
@@ -27,7 +25,7 @@ public class Main {
                 "Nowak123", piotrNowak);
 
         AccountsRepository accountsRepository =
-                                            new InMemoryAccountsRepository();
+                new InMemoryAccountsRepository();
 
         accountsRepository.addUserAccount(czlonek);
         accountsRepository.addUserAccount(bibliotekarz);
@@ -157,13 +155,25 @@ public class Main {
         }
 
         issueRepository.returnBook(panTadeusz2.getId(), bibliotekarzJakoCzlonek);
-        System.out.println(issueRepository);
 
-        System.out.println("----- TRYING TO RENT BOOK AS DIFFERENT USER -----");
         issueRepository.addIssue(new BookIssue(panTadeusz2.getId(),
                 BookIssue.BookStatus.LOANED), bibliotekarzJakoCzlonek);
 
-        System.out.println(issueRepository);
-    }
+        issueRepository.setAllRecordsRentalDataForTest();
 
+        for (UUID bookId : issueRepository.booksRentedByUser(czlonek)) {
+            issueRepository.returnBook(bookId, czlonek);
+        }
+
+        System.out.println("Piotr Nowak fine: " + czlonek.getFine() + "$");
+        czlonek.addCreditCard(5555555555554444L);
+
+        FinePayment payment = CreditCardPayment.of(czlonek);
+
+        System.out.println(payment);
+        System.out.println("Piotr Nowak fine: " + czlonek.getFine() + "$");
+        System.out.println();
+        System.out.println("Number of books in repository :" + bookRepository.countBooks());
+
+    }
 }

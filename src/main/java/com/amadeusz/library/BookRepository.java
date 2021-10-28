@@ -1,4 +1,4 @@
-package com.amadeusz.libraryfun;
+package com.amadeusz.library;
 
 import java.util.Map;
 import java.util.Optional;
@@ -9,6 +9,8 @@ public interface BookRepository {
     void addBook(BookItem bookitem);
 
     void deleteBookUsingId(UUID id);
+
+    int countBooks();
 
     Map<UUID, BookItem> searchByTitle(String title);
 

@@ -1,4 +1,4 @@
-package com.amadeusz.libraryfun;
+package com.amadeusz.library;
 
 import net.sourceforge.barbecue.Barcode;
 import net.sourceforge.barbecue.BarcodeFactory;

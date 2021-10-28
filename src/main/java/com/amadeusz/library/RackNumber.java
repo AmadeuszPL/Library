@@ -1,8 +1,9 @@
-package com.amadeusz.libraryfun;
+package com.amadeusz.library;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
 class RackNumber {
+
     private String locationCode;
 
     RackNumber(String locationCode) {
@@ -21,7 +22,7 @@ class RackNumber {
         return "RackNumber{" +
                 "Room: " + locationCode.substring(0, 2) + " " +
                 "Bookcase: " + locationCode.substring(2, 4)
-                + " Shelf: " + locationCode.substring(4, 6) + +
+                + " Shelf: " + locationCode.substring(4, 6) +
                 '}';
     }
 }

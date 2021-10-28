@@ -1,4 +1,4 @@
-package com.amadeusz.libraryfun;
+package com.amadeusz.library;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,4 +28,5 @@ class InMemoryAccountsRepository implements AccountsRepository {
                 "usersRepository=\n" + usersRepository +
                 '}';
     }
+
 }

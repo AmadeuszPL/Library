@@ -1,9 +1,7 @@
-package com.amadeusz.libraryfun;
+package com.amadeusz.library;
 
-import org.apache.commons.lang3.ObjectUtils;
-
+import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -17,10 +15,14 @@ class InMemoryBookIssueRepository implements BookIssueRepository {
     }
 
     @Override
-    public void addIssue(BookIssue bookIssue, LibraryMember user) {
+    public void addIssue(BookIssue bookIssue, LibraryMember user) throws IllegalAccessException {
         if (user.getTotalBooksCheckedOut() == ConstantValues.MAX_BOOKS_ISSUED_BY_USER
                 && bookIssue.getBookStatus().equals(BookIssue.BookStatus.LOANED)) {
             throw new IllegalArgumentException("Books limit reached");
+        }
+        if (user.getFine() != null) {
+            throw new IllegalAccessException("You need to pay fine before " +
+                    "renting more books.");
         }
         bookIssue.setIssuer(user.getId());
         UUID id = bookIssue.getBookId();
@@ -57,7 +59,8 @@ class InMemoryBookIssueRepository implements BookIssueRepository {
     }
 
     @Override
-    public void returnBook(UUID bookId, LibraryMember user) throws IllegalAccessException {
+    public void returnBook(UUID bookId, LibraryMember user)
+            throws IllegalAccessException {
         if (issueRepository.get(bookId) == null) {
             throw new NullPointerException("Book not in issue repository");
         }
@@ -68,12 +71,16 @@ class InMemoryBookIssueRepository implements BookIssueRepository {
                 throw new IllegalAccessException("You can return only loaned " +
                         "books!");
             }
-            long rentalTime = DAYS.between(issue.getIssueDate(), LocalDate.now())
-            if (rentalTime > 10) {
-                new Fine(rentalTime-10)
+            long rentalTime = DAYS.between(issue.getIssueDate(),
+                    LocalDate.now());
+            if (rentalTime > ConstantValues.MAX_LENDING_DAYS) {
+                long fine = (rentalTime - ConstantValues.MAX_LENDING_DAYS)
+                        * ConstantValues.FINE_FOR_ONE_DAY_OF_RENTAL;
+                user.addFine(BigDecimal.valueOf(fine));
             }
             issue.setIssuer(null);
             issue.setBookStatus(BookIssue.BookStatus.AVAILABLE);
+            user.subtractOneBook();
         } else {
             throw new IllegalAccessException("You cannot return book that " +
                     "was loaned by another user");
@@ -103,6 +110,13 @@ class InMemoryBookIssueRepository implements BookIssueRepository {
         return list;
     }
 
+    @Override
+    public void setAllRecordsRentalDataForTest() {
+        for (BookIssue bookIssue : issueRepository.values()) {
+            bookIssue.setIssueDate(bookIssue.getIssueDate().minusDays(20));
+        }
+    }
+
     private boolean checkIfReservationExpired(UUID id) {
         return issueRepository.get(id).getBookStatus().equals(BookIssue.BookStatus.RESERVED)
                 && (DAYS.between(issueRepository.get(id).getIssueDate(),
@@ -128,4 +142,5 @@ class InMemoryBookIssueRepository implements BookIssueRepository {
     public String toString() {
         return issueRepository.values() + "";
     }
+
 }

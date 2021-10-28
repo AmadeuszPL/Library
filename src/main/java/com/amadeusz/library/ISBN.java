@@ -1,4 +1,4 @@
-package com.amadeusz.libraryfun;
+package com.amadeusz.library;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -76,7 +76,7 @@ class ISBN {
 
         for (int i = 1; i < 14; i++) {
             int j = Character.getNumericValue(isbn.charAt(i - 1));
-            int x = 0;
+            int x;
             if (i % 2 == 0) {
                 x = 3;
             } else {
@@ -94,6 +94,5 @@ class ISBN {
             throw new RuntimeException("ISBN is not valid");
         }
     }
-
 
 }

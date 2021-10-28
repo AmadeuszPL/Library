@@ -1,6 +1,6 @@
-package com.amadeusz.libraryfun;
+package com.amadeusz.library;
 
-public class Person {
+class Person {
 
     private String name;
     private Adress adress;
@@ -18,4 +18,5 @@ public class Person {
     public String toString() {
         return '\'' + name + '\'';
     }
+
 }

@@ -1,4 +1,4 @@
-package com.amadeusz.libraryfun;
+package com.amadeusz.library;
 
 import java.time.LocalDate;
 import java.util.UUID;
@@ -40,6 +40,10 @@ class BookIssue {
 
     public LocalDate getIssueDate() {
         return issueDate;
+    }
+
+    public void setIssueDate(LocalDate issueDate) {
+        this.issueDate = issueDate;
     }
 
     enum BookStatus {
