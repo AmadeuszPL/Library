@@ -1,4 +1,4 @@
-package com.amadeusz.library;
+package com.amadeusz.library.application;
 
 import net.sourceforge.barbecue.Barcode;
 import net.sourceforge.barbecue.BarcodeFactory;
@@ -10,14 +10,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-class BookItem {
+public class BookItem implements Comparable<BookItem> {
 
     private final UUID id;
     private final Book book;
     private final BufferedImage barcode;
     private final RackNumber rackNumber;
 
-    BookItem(Book book, RackNumber rackNumber) throws Exception {
+    public BookItem(Book book, RackNumber rackNumber) throws Exception {
         id = UUID.randomUUID();
         this.book = book;
         this.barcode = generateCode128BarcodeImage(book.getIsbn().getValue());
@@ -62,4 +62,11 @@ class BookItem {
                 "id=" + id + book +
                 "}\n";
     }
+
+    @Override
+    public int compareTo(BookItem bookItem) {
+        return this.getTitle().compareTo(bookItem.getTitle());
+    }
+
+
 }

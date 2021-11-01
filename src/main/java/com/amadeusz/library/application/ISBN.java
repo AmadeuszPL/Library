@@ -1,8 +1,8 @@
-package com.amadeusz.library;
+package com.amadeusz.library.application;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
-class ISBN {
+public class ISBN {
 
     private final String value;
 
@@ -13,7 +13,7 @@ class ISBN {
         this.value = value;
     }
 
-    static ISBN of(String value) {
+    public static ISBN of(String value) {
         return new ISBN(value);
     }
 
@@ -69,7 +69,8 @@ class ISBN {
     private void validateISBN13(String isbn) {
 
         if (!NumberUtils.isParsable(isbn)) {
-            throw new RuntimeException("ISBN is not a number");
+            throw new ISBNValidationException("ISBN is not a number");
+            //how to throw exceptions change
         }
 
         int test_value = 0;

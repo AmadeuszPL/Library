@@ -1,6 +1,6 @@
-package com.amadeusz.library;
+package com.amadeusz.library.application;
 
-class Book {
+public class Book {
 
     private final ISBN isbn;
     private final String title;
@@ -8,8 +8,8 @@ class Book {
     private final Author author;
     private final SubjectCategory category;
 
-    Book(ISBN isbn, String title, int publicationYear, Author author,
-         SubjectCategory category) {
+    public Book(ISBN isbn, String title, int publicationYear, Author author,
+                SubjectCategory category) {
         this.isbn = isbn;
         this.title = title;
         this.publicationYear = publicationYear;

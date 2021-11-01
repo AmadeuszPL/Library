@@ -1,6 +1,6 @@
-package com.amadeusz.library;
+package com.amadeusz.library.application;
 
-class Person {
+public class Person {
 
     private String name;
     private Adress adress;
@@ -12,6 +12,10 @@ class Person {
         this.adress = adress;
         this.eMail = eMail;
         this.telephoneNumber = telephoneNumber;
+    }
+
+    public String geteMail() {
+        return eMail;
     }
 
     @Override

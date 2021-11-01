@@ -1,8 +1,9 @@
-package com.amadeusz.library;
+package com.amadeusz.library.application;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
-class LibraryMember extends Account {
+public class LibraryMember extends Account {
 
     private int totalBooksCheckedOut;
     private BigDecimal fine;
@@ -34,6 +35,16 @@ class LibraryMember extends Account {
         } else {
             this.fine = this.fine.add(fine);
         }
+    }
+
+    public void sendNotificationBookAvailable(UUID bookId){
+        System.out.println("Sending message: \n Book with id: " + bookId +
+                "is avaliable to rent to email adress" + this.getPerson().geteMail());
+    }
+
+    public void sendNotificationBookReturnedAfterTime(UUID bookId){
+        System.out.println("Sending message: \n Book with id: " + bookId +
+                " was returned after time" + this.getPerson().geteMail());
     }
 
     public CreditCard getCard() {

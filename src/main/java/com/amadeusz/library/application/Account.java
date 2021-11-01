@@ -1,8 +1,8 @@
-package com.amadeusz.library;
+package com.amadeusz.library.application;
 
 import java.util.UUID;
 
-abstract class Account {
+public abstract class Account {
 
     private final UUID id;
     private final String login;
@@ -14,6 +14,10 @@ abstract class Account {
         this.login = login;
         this.password = password;
         this.person = person;
+    }
+
+    public Person getPerson() {
+        return person;
     }
 
     public UUID getId() {

@@ -1,9 +1,9 @@
-package com.amadeusz.library;
+package com.amadeusz.library.application;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-abstract class FinePayment {
+public abstract class FinePayment {
 
     private final FinePaymentMethod finePaymentMethod;
     private final UUID transactionUUID;

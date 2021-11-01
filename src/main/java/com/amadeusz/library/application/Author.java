@@ -1,4 +1,4 @@
-package com.amadeusz.library;
+package com.amadeusz.library.application;
 
 public class Author {
 

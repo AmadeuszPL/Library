@@ -1,10 +1,22 @@
 package com.amadeusz.library;
 
-import java.util.UUID;
+import com.amadeusz.library.application.*;
+import com.amadeusz.library.infrastructure.InMemoryAccountsRepository;
+import com.amadeusz.library.infrastructure.InMemoryBookIssueRepository;
+import com.amadeusz.library.infrastructure.InMemoryBookRepository;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
+
+        LibraryConfiguration config =
+                new LibraryConfiguration(new InMemoryBookRepository(),
+                        new InMemoryBookIssueRepository(),
+                        new InMemoryAccountsRepository());
+
+        IssueService issueService = config.getIssueService();
+
+        BookRepositoryService bookService = config.getBookService();
 
         Adress mickiewicz12 = new Adress("Mickiewicza 12", "Nysa",
                 "48-300", "Poland");
@@ -38,7 +50,6 @@ public class Main {
         Author adamMickiewicz = new Author("Adam Mickiewicz", 1765);
         Author henrykSienkiewicz = new Author("Henryk Sienkiewicz", 1821);
         Author olgaTokarczuk = new Author("Olga Tokarczuk", 1978);
-//        Author galAnonim = new Author("Gal Anonim", 980);
 
         ISBN sampleISBN = ISBN.of("97 8 0 3 0 6 4 -0-6-----157");
         ISBN sampleISBN2 = ISBN.of("978-3-16-1484----10-0");
@@ -62,126 +73,50 @@ public class Main {
         BookItem bieguniBookItem2 = new BookItem(bieguni, new RackNumber(
                 "445593"));
 
-
-        BookRepository bookRepository = new InMemoryBookRepository();
-
-        bookRepository.addBook(panTadeuszBookItem);
-        bookRepository.addBook(panTadeusz2);
-        bookRepository.addBook(wPustyniBookItem);
-        bookRepository.addBook(wPustyni2);
-        bookRepository.addBook(bieguniBookItem);
-        bookRepository.addBook(bieguniBookItem2);
-        bookRepository.deleteBookUsingId(panTadeusz2.getId());
+        bookService.addBook(panTadeuszBookItem);
+        bookService.addBook(panTadeusz2);
+        bookService.addBook(wPustyniBookItem);
+        bookService.addBook(wPustyni2);
+        bookService.addBook(bieguniBookItem);
+        bookService.addBook(bieguniBookItem2);
 
         System.out.println("-------- PRINT BOOK REPOSITORY -------");
-        System.out.println(bookRepository);
+        System.out.println(bookService);
         System.out.println();
 
         System.out.println("-------- SEARCH BY TITLE -------");
-        System.out.println(bookRepository.searchByTitle("Pan Tadeusz").values());
+        System.out.println(bookService.searchByTitle("Pan Tadeusz"));
         System.out.println();
 
         System.out.println("-------- SEARCH BY CATEGORY -------");
-        System.out.println(bookRepository.searchByCategory(Book.SubjectCategory.HISTORICAL_FICTION).values());
+        System.out.println(bookService.searchByCategory(Book.SubjectCategory.HISTORICAL_FICTION));
         System.out.println();
 
         System.out.println("-------- SEARCH BY YEAR -------");
-        System.out.println(bookRepository.searchByYear(1923).values());
+        System.out.println(bookService.searchByYear(1923));
         System.out.println();
 
         System.out.println("-------- SEARCH BY AUTHOR -------");
-        System.out.println(bookRepository.searchByAuthor("Adam Mickiewicz").values());
+        System.out.println(bookService.searchByAuthor("Adam Mickiewicz"));
         System.out.println();
 
-        BookIssueRepository issueRepository = new InMemoryBookIssueRepository();
+        bibliotekarzJakoCzlonek.addCreditCard(5555555555554444L);
 
-        System.out.println("-------RESERVING ALL BOOKS NAMED Herr " +
-                "Tadeusz--------");
-        for (BookItem bookItem :
-                bookRepository.searchByTitle("Pan Tadeusz").values()) {
-            System.out.println("Reserving: " + bookItem);
-            issueRepository.addIssue(new BookIssue(bookItem.getId(),
-                    BookIssue.BookStatus.RESERVED), czlonek);
-        }
-        System.out.println();
 
-        System.out.println("----- EXTENDING RESERVATION TIME -----");
-        System.out.println("Reserving: " + panTadeuszBookItem);
-        issueRepository.addIssue(new BookIssue(panTadeuszBookItem.getId(),
-                BookIssue.BookStatus.RESERVED), czlonek);
-        System.out.println();
+        issueService.reserveBook(panTadeusz2.getId(), bibliotekarzJakoCzlonek);
+        issueService.cancelReservation(panTadeusz2.getId(), bibliotekarzJakoCzlonek);
+        issueService.lendBook(panTadeusz2.getId(), czlonek);
+        issueService.reserveBook(panTadeusz2.getId(), bibliotekarzJakoCzlonek);
+        issueService.returnBook(panTadeusz2.getId());
+        issueService.reserveBook(bieguniBookItem.getId(), czlonek);
+        issueService.reserveBook(bieguniBookItem.getId(), bibliotekarzJakoCzlonek);
+        issueService.cancelReservation(bieguniBookItem.getId(), czlonek);
+        issueService.lendBook(bieguniBookItem.getId(), bibliotekarzJakoCzlonek);
 
-        System.out.println("-----TRYING TO LOAN ALL THE BOOKS WITH TITLE " +
-                "CONTAINING i-----");
-        for (BookItem bookItem : bookRepository.searchByTitle("i").values()) {
-            System.out.println("Loaning: " + bookItem);
-            System.out.println();
-            issueRepository.addIssue(new BookIssue(bookItem.getId(),
-                    BookIssue.BookStatus.LOANED), czlonek);
-        }
-
-        bookRepository.addBook(panTadeusz2);
-        issueRepository.addIssue(new BookIssue(panTadeusz2.getId(),
-                BookIssue.BookStatus.LOANED), bibliotekarzJakoCzlonek);
 
         System.out.println();
-        System.out.println("--------PRINT WHOLE ISSUE REPOSITORY-------");
-        System.out.println(issueRepository);
-        System.out.println();
-
-
-        System.out.println("----- RENTING Pan Tadeusz -----");
-        System.out.println("Reserving: " + panTadeuszBookItem);
-        issueRepository.addIssue(new BookIssue(panTadeuszBookItem.getId(),
-                BookIssue.BookStatus.LOANED), czlonek);
-
-        System.out.println("----- RENTING Pan Tadeusz (different user) -----");
-        System.out.println("Reserving: " + panTadeuszBookItem);
-        issueRepository.addIssue(new BookIssue(panTadeuszBookItem.getId(),
-                BookIssue.BookStatus.LOANED), bibliotekarzJakoCzlonek);
-        System.out.println();
-
-        System.out.println("---------- Check who took book by Book ID " +
-                "--------");
-        UUID searchedUser =
-                issueRepository.whoTookBookID(panTadeuszBookItem.getId());
-
-        System.out.println(accountsRepository.searchUserById(searchedUser));
-        System.out.println();
-
-        System.out.println("---------- Check books took by user ----------");
-        for (UUID uuid : issueRepository.booksRentedByUser(czlonek)) {
-            System.out.println(bookRepository.searchById(uuid));
-        }
-
-        issueRepository.returnBook(panTadeusz2.getId(), bibliotekarzJakoCzlonek);
-
-        issueRepository.addIssue(new BookIssue(panTadeusz2.getId(),
-                BookIssue.BookStatus.LOANED), bibliotekarzJakoCzlonek);
-
-        issueRepository.setAllRecordsRentalDataForTest();
-
-        for (UUID bookId : issueRepository.booksRentedByUser(czlonek)) {
-            issueRepository.returnBook(bookId, czlonek);
-        }
-
-        System.out.println("Piotr Nowak fine: " + czlonek.getFine() + "$");
-        czlonek.addCreditCard(5555555555554444L);
-
-        FinePayment payment = CreditCardPayment.of(czlonek);
-
-        System.out.println(payment);
-        System.out.println("Piotr Nowak fine: " + czlonek.getFine() + "$");
-        System.out.println();
-        System.out.println("Number of books in repository: " + bookRepository.countBooks());
-        System.out.println();
-
-        issueRepository.addIssue(BookIssue.loan(panTadeusz2.getId()), czlonek);
-        issueRepository.reserveBook(panTadeusz2.getId(), bibliotekarzJakoCzlonek);
-        issueRepository.reserveBook(panTadeusz2.getId(), bibliotekarzJakoCzlonek);
-
-        System.out.println(issueRepository);
-
+        System.out.println("Print Issue Service");
+        System.out.println(issueService);
 
     }
 }

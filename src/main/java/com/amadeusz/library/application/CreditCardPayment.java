@@ -1,8 +1,8 @@
-package com.amadeusz.library;
+package com.amadeusz.library.application;
 
 import java.math.BigDecimal;
 
-class CreditCardPayment extends FinePayment implements CreditCardPaymentFunctionality {
+public class CreditCardPayment extends FinePayment implements CreditCardPaymentFunctionality {
 
     public CreditCardPayment(LibraryMember libraryMember, FinePaymentMethod finePaymentMethod) throws IllegalAccessException {
         super(libraryMember, finePaymentMethod);
@@ -10,7 +10,7 @@ class CreditCardPayment extends FinePayment implements CreditCardPaymentFunction
                 libraryMember.getCard());
     }
 
-    static CreditCardPayment of(LibraryMember libraryMember) throws IllegalAccessException {
+    public static CreditCardPayment of(LibraryMember libraryMember) throws IllegalAccessException {
         return new CreditCardPayment(libraryMember, FinePaymentMethod.CREDIT_CARD);
     }
 

@@ -1,4 +1,6 @@
-package com.amadeusz.library;
+package com.amadeusz.library.application;
+
+import com.amadeusz.library.infrastructure.InMemoryBookRepository;
 
 import java.util.Map;
 

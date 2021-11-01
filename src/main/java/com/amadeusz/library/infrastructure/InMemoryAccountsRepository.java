@@ -1,10 +1,13 @@
-package com.amadeusz.library;
+package com.amadeusz.library.infrastructure;
+
+import com.amadeusz.library.application.Account;
+import com.amadeusz.library.application.AccountsRepository;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-class InMemoryAccountsRepository implements AccountsRepository {
+public class InMemoryAccountsRepository implements AccountsRepository {
 
     private static Map<UUID, Account> usersRepository;
 

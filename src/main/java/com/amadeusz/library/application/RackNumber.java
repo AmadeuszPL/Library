@@ -1,12 +1,12 @@
-package com.amadeusz.library;
+package com.amadeusz.library.application;
 
 import org.apache.commons.lang3.math.NumberUtils;
 
-class RackNumber {
+public class RackNumber {
 
     private String locationCode;
 
-    RackNumber(String locationCode) {
+    public RackNumber(String locationCode) {
         verifyRackNumber(locationCode);
         this.locationCode = locationCode;
     }
