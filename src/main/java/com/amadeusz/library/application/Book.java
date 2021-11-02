@@ -52,8 +52,9 @@ public class Book {
 
     @Override
     public String toString() {
-        return "\nisbn=" + isbn +
-                ", title='" + title +
-                '}';
+        return "Book{" +
+                "isbn=" + isbn.getValue() +
+                ", title='" + title + '\'' +
+                "\n";
     }
 }

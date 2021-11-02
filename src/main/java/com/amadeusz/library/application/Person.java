@@ -3,11 +3,11 @@ package com.amadeusz.library.application;
 public class Person {
 
     private String name;
-    private Adress adress;
+    private Address adress;
     private String eMail;
     private String telephoneNumber;
 
-    public Person(String name, Adress adress, String eMail, String telephoneNumber) {
+    public Person(String name, Address adress, String eMail, String telephoneNumber) {
         this.name = name;
         this.adress = adress;
         this.eMail = eMail;

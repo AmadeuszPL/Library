@@ -39,23 +39,33 @@ public class InMemoryBookIssueRepository implements BookIssueRepository {
 
     @Override
     public List<BookReservation> getSortedListOfActiveBookReservations(UUID bookId) {
-        return reservationRepository.values().stream()
-                .filter(bookReservation -> bookReservation.getBookId().equals(bookId))
-                .filter(bookReservation -> !(bookReservation
-                        .getReservationStatus().
-                        equals(BookReservation.ReservationStatus.EXPIRED)))
-                .sorted(Comparator.comparing(BookReservation::getIssueDate))
-                .collect(Collectors.toList());
+        return null;
     }
 
     @Override
     public Optional<BookLending> getLendingByBookId(UUID bookId) {
-        return lendingRepository.values().stream()
-                .filter(bookLending -> bookLending.getBookId().equals(bookId))
-                .filter(bookLending -> bookLending.getStatus().equals(ACTIVE))
-                .findFirst();
+        return Optional.empty();
     }
 
+    /*    @Override
+        public List<BookReservation> getSortedListOfActiveBookReservations(UUID bookId) {
+            return reservationRepository.values().stream()
+                    .filter(bookReservation -> bookReservation.getBookId().equals(bookId))
+                    .filter(bookReservation -> !(bookReservation
+                            .getReservationStatus().
+                            equals(BookReservation.ReservationStatus.EXPIRED)))
+                    .sorted(Comparator.comparing(BookReservation::getIssueDate))
+                    .collect(Collectors.toList());
+        }
+
+        @Override
+        public Optional<BookLending> getLendingByBookId(UUID bookId) {
+            return lendingRepository.values().stream()
+                    .filter(bookLending -> bookLending.getBookId().equals(bookId))
+                    .filter(bookLending -> bookLending.getStatus().equals(ACTIVE))
+                    .findFirst();
+        }
+    */
     @Override
     public String toString() {
         return "lendingRepository=" + lendingRepository +

@@ -1,20 +1,12 @@
 package com.amadeusz.library.application;
 
-import com.amadeusz.library.infrastructure.BookEntity;
-
 import java.util.List;
 
-public interface BookRepository {
+public interface BookServiceInterface {
 
-    void create(Book book);
+    void add(Book book);
 
-    List<Book> read();
-
-    Book readByIsbn(String isbn);
-
-    void update(Book book);
-
-    void delete(Book book);
+    Book getByISBN(String isbn);
 
     List<Book> searchByYear(int year);
 

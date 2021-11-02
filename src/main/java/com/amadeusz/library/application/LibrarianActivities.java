@@ -1,12 +1,12 @@
 package com.amadeusz.library.application;
 
-import com.amadeusz.library.infrastructure.InMemoryBookRepository;
+import com.amadeusz.library.infrastructure.InMemoryBookItemRepository;
 
 import java.util.Map;
 
 interface LibrarianActivities {
 
-    boolean addBook(InMemoryBookRepository repository, BookItem book);
+    boolean addBook(InMemoryBookItemRepository repository, BookItem book);
 
     Person checkWhoIssuedBook(Map<String, BookItem> db,
                                      String ISBN);

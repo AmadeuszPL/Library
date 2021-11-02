@@ -3,24 +3,26 @@ package com.amadeusz.library;
 import com.amadeusz.library.application.*;
 import com.amadeusz.library.infrastructure.InMemoryAccountsRepository;
 import com.amadeusz.library.infrastructure.InMemoryBookIssueRepository;
+import com.amadeusz.library.infrastructure.InMemoryBookItemRepository;
 import com.amadeusz.library.infrastructure.InMemoryBookRepository;
 
 public class Main {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         LibraryConfiguration config =
                 new LibraryConfiguration(new InMemoryBookRepository(),
+                        new InMemoryBookItemRepository(),
                         new InMemoryBookIssueRepository(),
                         new InMemoryAccountsRepository());
 
-        IssueService issueService = config.getIssueService();
+/*        IssueService issueService = config.getIssueService();
 
-        BookRepositoryService bookService = config.getBookService();
+        BookItemService bookService = config.getBookService();
 
-        Adress mickiewicz12 = new Adress("Mickiewicza 12", "Nysa",
+        Address mickiewicz12 = new Address("Mickiewicza 12", "Nysa",
                 "48-300", "Poland");
-        Adress broniewskiego7 = new Adress("Broniewskiego 7", "Nysa",
+        Address broniewskiego7 = new Address("Broniewskiego 7", "Nysa",
                 "48-304", "Poland");
 
         Person janKowalski = new Person("Jan Kowalski", mickiewicz12, "jk@o2" +
@@ -50,9 +52,6 @@ public class Main {
         Author adamMickiewicz = new Author("Adam Mickiewicz", 1765);
         Author henrykSienkiewicz = new Author("Henryk Sienkiewicz", 1821);
         Author olgaTokarczuk = new Author("Olga Tokarczuk", 1978);
-
-        ISBN sampleISBN = ISBN.of("97 8 0 3 0 6 4 -0-6-----157");
-        ISBN sampleISBN2 = ISBN.of("978-3-16-1484----10-0");
 
         Book panTadeusz = new Book(ISBN.of("0123456789"), "Pan " +
                 "Tadeusz", 1923, adamMickiewicz, Book.SubjectCategory.HISTORICAL_FICTION);
@@ -116,7 +115,41 @@ public class Main {
 
         System.out.println();
         System.out.println("Print Issue Service");
-        System.out.println(issueService);
+        System.out.println(issueService);*/
+
+
+
+        Author adamMickiewicz = new Author("Adam Mickiewicz", 1765);
+        Author henrykSienkiewicz = new Author("Henryk Sienkiewicz", 1821);
+        Author olgaTokarczuk = new Author("Olga Tokarczuk", 1978);
+
+        ISBN sampleISBN = ISBN.of("97 8 0 3 0 6 4 -0-6-----157");
+        ISBN sampleISBN2 = ISBN.of("978-3-16-1484----10-0");
+
+        Book panTadeusz = new Book(ISBN.of("0123456789"), "Pan " +
+                "Tadeusz", 1923, adamMickiewicz, Book.SubjectCategory.HISTORICAL_FICTION);
+        Book wPustyni = new Book(sampleISBN, "W pustyni i w puszczy", 1843,
+                henrykSienkiewicz, Book.SubjectCategory.LITERALLY_FICTION);
+        Book bieguni = new Book(sampleISBN2, "Bieguni", 2007, olgaTokarczuk,
+                Book.SubjectCategory.MYSTERY);
+
+
+        BookService bookService = config.getBookService();
+
+
+
+        bookService.add(panTadeusz);
+        bookService.add(wPustyni);
+        bookService.add(bieguni);
+        bookService.updateBookData(new Book(ISBN.of("0123456789"), "Pan " +
+                "Tadeusz i Templariusze", 1923, adamMickiewicz,
+                Book.SubjectCategory.HISTORICAL_FICTION));
+        bookService.getByISBN("0123456789");
+
+
+        System.out.println(bookService);
+
+        System.out.println(bookService.getByISBN("0123456789"));
 
     }
 }

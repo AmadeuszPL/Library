@@ -2,35 +2,23 @@ package com.amadeusz.library.application;
 
 import java.util.*;
 
-import static com.amadeusz.library.infrastructure.InMemoryBookRepository.countBooks;
+public class BookItemService {
 
-public class BookRepositoryService {
+    private final BookItemRepository bookRepository;
 
-    private final BookRepository bookRepository;
-
-    public BookRepositoryService(BookRepository bookRepository) {
+    public BookItemService(BookItemRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
 
     public void addBook(BookItem bookitem) {
         bookRepository.save(bookitem);
-        addOneBookToBookCountingVariable();
-    }
-
-    private void addOneBookToBookCountingVariable() {
-        countBooks++;
     }
 
     public void deleteBookUsingId(UUID id) {
         bookRepository.removeById(id);
-        countBooks--;
     }
 
-    public int countBooks() {
-        return countBooks;
-    }
-
-    public List<BookItem> searchByAuthor(String authorName) {
+/*    public List<BookItem> searchByAuthor(String authorName) {
         return bookRepository.searchByAuthor(authorName);
     }
 
@@ -38,14 +26,13 @@ public class BookRepositoryService {
         return bookRepository.searchByYear(publicationYear);
     }
 
-
     public List<BookItem> searchByCategory(Book.SubjectCategory category) {
         return bookRepository.searchByCategory(category);
     }
 
     public List<BookItem> searchByTitle(String bookTitle) {
         return bookRepository.searchByTitle(bookTitle);
-    }
+    }*/
 
     public BookItem searchBookById(UUID bookId){
         return bookRepository.get(bookId);

@@ -7,15 +7,16 @@ public abstract class BookIssue {
 
     private final UUID issueId;
     private final LocalDateTime issueDate;
-    private final UUID bookId;
-    private final LibraryMember issuer;
+    private final UUID bookItemId;
+    private final UUID issuerId;
 
-    public BookIssue(UUID bookId, LibraryMember issuer) {
+    public BookIssue(UUID issueId, UUID bookItemId, UUID issuerId,
+                     LocalDateTime localDateTime) {
 
-        this.issueId = UUID.randomUUID();
-        this.issueDate = LocalDateTime.now();
-        this.bookId = bookId;
-        this.issuer = issuer;
+        this.issueId = issueId;
+        this.issueDate = localDateTime;
+        this.bookItemId = bookItemId;
+        this.issuerId = issuerId;
 
     }
 
@@ -23,20 +24,16 @@ public abstract class BookIssue {
         return issueId;
     }
 
-    public UUID getBookId() {
-        return bookId;
+    public LocalDateTime getIssueDate() {
+        return issueDate;
+    }
+
+    public UUID getBookItemId() {
+        return bookItemId;
     }
 
     public UUID getIssuerId() {
-        return issuer.getId();
-    }
-
-    public LibraryMember getIssuer() {
-        return issuer;
-    }
-
-    public LocalDateTime getIssueDate() {
-        return issueDate;
+        return issuerId;
     }
 
     @Override
@@ -44,8 +41,8 @@ public abstract class BookIssue {
         return "BookIssue{" +
                 "issueId=" + issueId +
                 ", issueDate=" + issueDate +
-                ", bookId=" + bookId +
-                ", issuer=" + issuer +
+                ", bookItemId=" + bookItemId +
+                ", issuerId=" + issuerId +
                 '}';
     }
 }

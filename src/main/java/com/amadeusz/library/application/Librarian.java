@@ -1,6 +1,6 @@
 package com.amadeusz.library.application;
 
-import com.amadeusz.library.infrastructure.InMemoryBookRepository;
+import com.amadeusz.library.infrastructure.InMemoryBookItemRepository;
 
 import java.util.Map;
 
@@ -11,7 +11,7 @@ public class Librarian extends Account implements LibrarianActivities {
     }
 
     @Override
-    public boolean addBook(InMemoryBookRepository repository, BookItem book) {
+    public boolean addBook(InMemoryBookItemRepository repository, BookItem book) {
         return false;
     }
 

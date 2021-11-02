@@ -1,14 +1,21 @@
 package com.amadeusz.library.application;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 public class BookReservation extends BookIssue {
 
     private ReservationStatus reservationStatus;
 
-    public BookReservation(UUID bookId, LibraryMember issuer, ReservationStatus reservationStatus) {
+    public BookReservation(UUID issueId, UUID bookItemId, UUID issuerId, LocalDateTime localDateTime, ReservationStatus reservationStatus) {
+        super(issueId, bookItemId, issuerId, localDateTime);
+        this.reservationStatus = reservationStatus;
+    }
 
-        super(bookId, issuer);
+    public BookReservation(UUID bookId, UUID issuerId,
+                           ReservationStatus reservationStatus) {
+
+        super(UUID.randomUUID(), bookId, issuerId, LocalDateTime.now());
         this.reservationStatus = reservationStatus;
 
     }

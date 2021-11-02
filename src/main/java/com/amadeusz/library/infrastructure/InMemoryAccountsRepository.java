@@ -9,27 +9,28 @@ import java.util.UUID;
 
 public class InMemoryAccountsRepository implements AccountsRepository {
 
-    private static Map<UUID, Account> usersRepository;
+//    private static Map<UUID, AccountEntity> usersRepository;
 
-    public InMemoryAccountsRepository() {
+/*    public InMemoryAccountsRepository() {
         usersRepository = new HashMap<>();
-    }
+    }*/
 
     @Override
     public void addUserAccount(Account account) {
-        usersRepository.put(account.getId(), account);
+//        usersRepository.put(account.getId(), account);
     }
 
     @Override
     public Account searchUserById(UUID id) {
-        return usersRepository.get(id);
+//        return usersRepository.get(id);
+        return null;
     }
 
-    @Override
+/*    @Override
     public String toString() {
         return "InMemoryAccountsRepository{" +
                 "usersRepository=\n" + usersRepository +
                 '}';
-    }
+    }*/
 
 }

@@ -14,6 +14,10 @@ public class Author {
         return name;
     }
 
+    public int getBirthYear() {
+        return birthYear;
+    }
+
     @Override
     public String toString() {
         return "{" +

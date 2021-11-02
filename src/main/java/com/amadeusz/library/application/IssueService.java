@@ -15,7 +15,7 @@ public class IssueService {
     public IssueService(BookIssueRepository issueRepository) {
         this.issueRepository = issueRepository;
     }
-
+/*
     public void lendBook(UUID bookId, LibraryMember issuer) {
         checkIfUserReachedLimit(issuer.getTotalBooksCheckedOut());
         checkIfBookIsNotLendedAlready(bookId);
@@ -188,6 +188,8 @@ public class IssueService {
                     "lended");
         }
     }
+
+ */
 
     @Override
     public String toString() {
