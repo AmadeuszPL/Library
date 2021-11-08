@@ -1,45 +1,52 @@
 package com.amadeusz.library.application;
 
+import com.amadeusz.library.application.accounts.AccountsService;
+import com.amadeusz.library.application.book.BookService;
+import com.amadeusz.library.application.bookissue.IssueService;
+import com.amadeusz.library.application.bookitem.BookItemService;
+
 public class LibraryConfiguration {
 
-    private final BookRepository bookRepository;
-    private final BookItemRepository bookItemRepository;
-    private final BookIssueRepository bookIssueRepository;
-    private final AccountsRepository accountsRepository;
-    private final IssueService issueService;
     private final BookService bookService;
+    private final BookItemService bookItemService;
+    private final IssueService issueService;
+    private final AccountsService accountsService;
 
-    public LibraryConfiguration(BookRepository bookRepository,
-                                BookItemRepository bookItemRepository,
-                                BookIssueRepository bookIssueRepository,
-                                AccountsRepository accountsRepository) {
-        this.bookRepository = bookRepository;
-        this.bookItemRepository = bookItemRepository;
-        this.bookIssueRepository = bookIssueRepository;
-        this.accountsRepository = accountsRepository;
+//    private final BookByYearProvider byYearProvider;
 
-        this.issueService = new IssueService(bookIssueRepository);
-        this.bookService = new BookService(bookRepository);
-        //this.bookService = new BookItemService(bookItemRepositoryRepository);
+    public LibraryConfiguration(BookService bookService, BookItemService bookItemService,
+                                IssueService issueService, AccountsService accountsService) {
+
+        this.bookService = bookService;
+        this.bookItemService = bookItemService;
+        this.issueService = issueService;
+        this.accountsService = accountsService;
+
+//        DefaultBookService defaultBookService = new DefaultBookService(bookRepository);
+//        this.bookService = defaultBookService;
+////        this.byYearProvider = defaultBookService;
+//        this.bookItemService = new DefaultBookItemService(bookItemRepository,
+//                bookRepository);
+//        this.issueService = new DefaultIssueService(bookIssueRepository,
+//                bookItemRepository, libraryMembersRepository);
+//        this.accountsService =
+//                new DefaultAccountsService(this.libraryMembersRepository);
+
+    }
+
+    public BookService getBookService() {
+        return bookService;
+    }
+
+    public BookItemService getBookItemService() {
+        return bookItemService;
     }
 
     public IssueService getIssueService() {
         return issueService;
     }
 
-/*   public BookItemRepository getBookRepository() {
-        return bookRepository;
-    }*/
-
-    public BookIssueRepository getBookIssueRepository() {
-        return bookIssueRepository;
-    }
-
-    public AccountsRepository getAccountsRepository() {
-        return accountsRepository;
-    }
-
-    public BookService getBookService() {
-        return bookService;
+    public AccountsService getLibraryMemberService() {
+        return accountsService;
     }
 }
