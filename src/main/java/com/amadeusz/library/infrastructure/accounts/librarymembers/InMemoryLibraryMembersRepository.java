@@ -3,12 +3,14 @@ package com.amadeusz.library.infrastructure.accounts.librarymembers;
 import com.amadeusz.library.application.accounts.librarymembers.LibraryMember;
 import com.amadeusz.library.application.accounts.librarymembers.LibraryMembersRepository;
 import com.amadeusz.library.application.exceptions.IllegalOperationException;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
+@Repository("accountsRepository")
 public class InMemoryLibraryMembersRepository implements LibraryMembersRepository {
 
     private final LibraryMemberMapper mapper;

@@ -1,15 +1,26 @@
 package com.amadeusz.library.infrastructure.bookissue;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
 public class BookReservationEntity {
 
+    @Id
+    @GeneratedValue
+    @Column(updatable = false, nullable = false)
     private UUID issueId;
     private LocalDateTime issueDate;
     private String bookIsbn;
     private UUID issuerId;
     private String reservationStatus;
+
+    public BookReservationEntity() {
+    }
 
     public UUID getIssueId() {
         return issueId;

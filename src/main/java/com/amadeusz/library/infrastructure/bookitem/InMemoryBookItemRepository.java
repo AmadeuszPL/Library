@@ -2,10 +2,12 @@ package com.amadeusz.library.infrastructure.bookitem;
 
 import com.amadeusz.library.application.bookitem.BookItem;
 import com.amadeusz.library.application.bookitem.BookItemRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Repository("BookItemRepository")
 public class InMemoryBookItemRepository implements BookItemRepository {
 
     private final BookItemEntityMapper mapper;

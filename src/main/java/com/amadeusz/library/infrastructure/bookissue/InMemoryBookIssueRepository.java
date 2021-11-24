@@ -5,10 +5,12 @@ import com.amadeusz.library.application.bookissue.BookIssueRepository;
 import com.amadeusz.library.application.bookissue.BookLending;
 import com.amadeusz.library.application.bookissue.BookReservation;
 import com.amadeusz.library.infrastructure.bookitem.NoBookInRepositoryException;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Repository("BookIssueRepository")
 public class InMemoryBookIssueRepository implements BookIssueRepository {
 
     private final BookIssueMapper mapper;

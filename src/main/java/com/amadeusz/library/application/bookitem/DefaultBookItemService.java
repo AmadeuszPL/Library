@@ -1,9 +1,11 @@
 package com.amadeusz.library.application.bookitem;
 
 import com.amadeusz.library.application.book.BookRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+@Service("bookItemService")
 public class DefaultBookItemService implements BookItemService {
 
     private final BookItemRepository bookItemRepository;

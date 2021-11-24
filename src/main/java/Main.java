@@ -11,10 +11,7 @@ import com.amadeusz.library.application.bookissue.IssueService;
 import com.amadeusz.library.application.bookitem.BookItem;
 import com.amadeusz.library.application.bookitem.BookItemService;
 import com.amadeusz.library.application.bookitem.RackNumber;
-import com.amadeusz.library.infrastructure.accounts.librarymembers.InMemoryLibraryMembersRepository;
-import com.amadeusz.library.infrastructure.bookissue.InMemoryBookIssueRepository;
-import com.amadeusz.library.infrastructure.bookitem.InMemoryBookItemRepository;
-import com.amadeusz.library.infrastructure.book.InMemoryBookRepository;
+import com.amadeusz.library.infrastructure.book.InDataBaseBookRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -27,8 +24,15 @@ public class Main {
     public static void main(String[] args) throws Exception {
         ApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class);
 
-        LibraryConfiguration config = appContext.getBean("getLibraryConfiguration",
+        LibraryConfiguration singleTonTest = appContext.getBean("libraryConfiguration",
                 LibraryConfiguration.class);
+
+        System.out.println(singleTonTest);
+
+        LibraryConfiguration config = appContext.getBean("libraryConfiguration",
+                LibraryConfiguration.class);
+
+        System.out.println(config);
 
 //        LibraryConfiguration config =
 //                new LibraryConfiguration(new InMemoryBookRepository(),
@@ -161,6 +165,9 @@ public class Main {
         issueService.returnBook(panTadeuszBookItem.getId());
         issueService.cancelReservation(panTadeuszISBN.getValue(), piotrNowak.getId());
         issueService.lendBook(panTadeuszISBN.getValue(), janKowalski.getId());
+
+        InDataBaseBookRepository bookRepository = new InDataBaseBookRepository();
+        bookRepository.create(panTadeusz);
 
     }
 }

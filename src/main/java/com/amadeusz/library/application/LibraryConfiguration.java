@@ -4,7 +4,9 @@ import com.amadeusz.library.application.accounts.AccountsService;
 import com.amadeusz.library.application.book.BookService;
 import com.amadeusz.library.application.bookissue.IssueService;
 import com.amadeusz.library.application.bookitem.BookItemService;
+import org.springframework.stereotype.Service;
 
+@Service("libraryConfiguration")
 public class LibraryConfiguration {
 
     private final BookService bookService;

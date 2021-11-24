@@ -2,9 +2,11 @@ package com.amadeusz.library.application.accounts;
 
 import com.amadeusz.library.application.accounts.librarymembers.LibraryMember;
 import com.amadeusz.library.application.accounts.librarymembers.LibraryMembersRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
+@Service("accountsService")
 public class DefaultAccountsService implements AccountsService {
 
     private final LibraryMembersRepository libraryMembersRepository;

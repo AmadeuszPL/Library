@@ -2,10 +2,16 @@ package com.amadeusz.library.infrastructure.bookitem;
 
 import com.amadeusz.library.application.bookitem.BookItem;
 
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Table(name = "bookitems")
 public class BookItemEntity {
 
+    @Id
+    @GeneratedValue
+    @Column(updatable = false, nullable = false)
     private UUID id;
     private String bookIsbn;
     private String rackNumber;

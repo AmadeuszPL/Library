@@ -4,9 +4,11 @@ import com.amadeusz.library.application.book.BookRepository;
 import com.amadeusz.library.application.book.BookService;
 import com.amadeusz.library.application.book.Book;
 import com.amadeusz.library.application.book.BookByYearProvider;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service("bookService")
 public class DefaultBookService implements BookService, BookByYearProvider {
 
     private final BookRepository bookRepository;

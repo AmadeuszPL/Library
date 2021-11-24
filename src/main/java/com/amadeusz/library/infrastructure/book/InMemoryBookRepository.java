@@ -3,10 +3,12 @@ package com.amadeusz.library.infrastructure.book;
 import com.amadeusz.library.application.book.Book;
 import com.amadeusz.library.application.book.BookRepository;
 import com.amadeusz.library.application.exceptions.IllegalOperationException;
+import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+@Repository("bookRepository")
 public class InMemoryBookRepository implements BookRepository {
 
     private final BookEntityMapper mapper;

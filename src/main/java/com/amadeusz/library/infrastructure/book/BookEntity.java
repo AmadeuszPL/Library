@@ -1,13 +1,23 @@
 package com.amadeusz.library.infrastructure.book;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="books")
 public class BookEntity {
 
+    @Id
     private String isbn;
     private String title;
     private int publicationYear;
     private String authorName;
     private int authorBirthYear;
     private String category;
+
+    public BookEntity() {
+    }
 
     public String getIsbn() {
         return isbn;

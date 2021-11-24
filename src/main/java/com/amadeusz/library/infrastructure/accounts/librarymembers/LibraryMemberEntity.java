@@ -2,11 +2,16 @@ package com.amadeusz.library.infrastructure.accounts.librarymembers;
 
 import com.amadeusz.library.application.accounts.Address;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.UUID;
-
+@Entity
+@Table(name = "library_members")
 public class LibraryMemberEntity {
 
+    @Id
+    @GeneratedValue
+    @Column(name = "library_member_id", updatable = false, nullable = false)
     private UUID id;
     private String login;
     private String password;

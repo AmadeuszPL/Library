@@ -6,6 +6,7 @@ import com.amadeusz.library.application.accounts.librarymembers.LibraryMembersRe
 import com.amadeusz.library.application.bookitem.BookItem;
 import com.amadeusz.library.application.bookitem.BookItemRepository;
 import com.amadeusz.library.application.exceptions.IllegalOperationException;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ import java.util.UUID;
 
 import static java.time.temporal.ChronoUnit.DAYS;
 
+@Service("issueService")
 public class DefaultIssueService implements IssueService {
 
     private final BookIssueRepository issueRepository;
