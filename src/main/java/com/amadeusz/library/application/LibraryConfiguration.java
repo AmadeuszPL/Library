@@ -1,12 +1,12 @@
 package com.amadeusz.library.application;
 
-import com.amadeusz.library.application.accounts.AccountsService;
-import com.amadeusz.library.application.book.BookService;
-import com.amadeusz.library.application.bookissue.IssueService;
-import com.amadeusz.library.application.bookitem.BookItemService;
+import com.amadeusz.library.infrastructure.service.AccountsService;
+import com.amadeusz.library.infrastructure.service.BookService;
+import com.amadeusz.library.infrastructure.service.IssueService;
+import com.amadeusz.library.infrastructure.service.BookItemService;
 import org.springframework.stereotype.Service;
 
-@Service("libraryConfiguration")
+//@Service("libraryConfiguration")
 public class LibraryConfiguration {
 
     private final BookService bookService;

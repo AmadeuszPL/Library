@@ -2,16 +2,15 @@ import com.amadeusz.library.application.*;
 import com.amadeusz.library.application.accounts.Address;
 import com.amadeusz.library.application.accounts.Person;
 import com.amadeusz.library.application.accounts.librarymembers.LibraryMember;
-import com.amadeusz.library.application.accounts.AccountsService;
+import com.amadeusz.library.infrastructure.service.AccountsService;
 import com.amadeusz.library.application.book.Author;
 import com.amadeusz.library.application.book.Book;
-import com.amadeusz.library.application.book.BookService;
+import com.amadeusz.library.infrastructure.service.BookService;
 import com.amadeusz.library.application.book.ISBN;
-import com.amadeusz.library.application.bookissue.IssueService;
+import com.amadeusz.library.infrastructure.service.IssueService;
 import com.amadeusz.library.application.bookitem.BookItem;
-import com.amadeusz.library.application.bookitem.BookItemService;
+import com.amadeusz.library.infrastructure.service.BookItemService;
 import com.amadeusz.library.application.bookitem.RackNumber;
-import com.amadeusz.library.infrastructure.book.InDataBaseBookRepository;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -22,9 +21,8 @@ import static com.amadeusz.library.application.book.Book.SubjectCategory.*;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        ApplicationContext appContext = new AnnotationConfigApplicationContext(AppConfig.class);
 
-        LibraryConfiguration singleTonTest = appContext.getBean("libraryConfiguration",
+/*        LibraryConfiguration singleTonTest = appContext.getBean("libraryConfiguration",
                 LibraryConfiguration.class);
 
         System.out.println(singleTonTest);
@@ -32,7 +30,7 @@ public class Main {
         LibraryConfiguration config = appContext.getBean("libraryConfiguration",
                 LibraryConfiguration.class);
 
-        System.out.println(config);
+        System.out.println(config);*/
 
 //        LibraryConfiguration config =
 //                new LibraryConfiguration(new InMemoryBookRepository(),
@@ -85,12 +83,12 @@ public class Main {
                 "Nowak123", piotrNowakPerson);
 
 
-        BookService bookService = appContext.getBean("bookService", BookService.class);
+/*        BookService bookService = appContext.getBean("bookService", BookService.class);
         BookItemService bookItemService = config.getBookItemService();
         IssueService issueService = appContext.getBean("issueService", IssueService.class);
-        AccountsService libraryMemberService = config.getLibraryMemberService();
+        AccountsService libraryMemberService = config.getLibraryMemberService();*/
 
-        libraryMemberService.addLibraryMember(janKowalski);
+/*        libraryMemberService.addLibraryMember(janKowalski);
         libraryMemberService.addLibraryMember(piotrNowak);
 
         bookService.add(panTadeusz);
@@ -167,7 +165,7 @@ public class Main {
         issueService.lendBook(panTadeuszISBN.getValue(), janKowalski.getId());
 
         InDataBaseBookRepository bookRepository = new InDataBaseBookRepository();
-        bookRepository.create(panTadeusz);
+        bookRepository.create(panTadeusz);*/
 
     }
 }

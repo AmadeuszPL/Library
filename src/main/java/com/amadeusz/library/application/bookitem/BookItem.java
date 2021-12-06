@@ -1,5 +1,4 @@
 package com.amadeusz.library.application.bookitem;
-
 import com.amadeusz.library.application.book.Book;
 import net.sourceforge.barbecue.Barcode;
 import net.sourceforge.barbecue.BarcodeFactory;
