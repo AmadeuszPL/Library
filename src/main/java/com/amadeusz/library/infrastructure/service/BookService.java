@@ -10,7 +10,7 @@ public interface BookService {
 
     BookEntity getByISBN(String isbn);
 
-    BookEntity updateBookData(BookEntity book);
+//    BookEntity updateBookData(BookEntity book);
 
     BookEntity updateBookTitle(String title, String isbn);
 

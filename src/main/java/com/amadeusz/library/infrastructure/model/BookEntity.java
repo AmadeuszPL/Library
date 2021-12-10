@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
-@Table(name="books")
+@Table(name = "books")
 public class BookEntity {
 
     @Id
@@ -21,7 +21,7 @@ public class BookEntity {
     }
 
     public void setIsbn(String isbn) {
-        this.isbn = isbn;
+        this.isbn = isbn.replaceAll("[^0-9]", "");
     }
 
     public String getTitle() {
@@ -66,10 +66,7 @@ public class BookEntity {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "isbn=" + isbn +
-                ", title='" + title + '\'' +
-                "}";
+        return "Book{" + "isbn=" + isbn + ", title='" + title + '\'' + "}";
     }
 
 }

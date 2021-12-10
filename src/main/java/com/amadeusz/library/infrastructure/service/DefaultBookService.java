@@ -23,8 +23,12 @@ public class DefaultBookService implements BookService {
 //        this.bookRepository = bookRepository;
 //    }
 
+    private BookEntityMapper mapper = new DefaultBookEntityMapper();
+
     @Override
     public BookEntity add(BookEntity book) {
+        Book map = mapper.map(book);
+        System.out.println(map);
         return bookRepository.saveAndFlush(book);
     }
 
@@ -37,10 +41,10 @@ public class DefaultBookService implements BookService {
         return byId.get();
     }
 
-    @Override
-    public BookEntity updateBookData(BookEntity book) {
-        return bookRepository.saveAndFlush(book);
-    }
+//    @Override
+//    public BookEntity updateBookData(BookEntity book) {
+//        return bookRepository.saveAndFlush(book);
+//    }
 
     @Override
     public BookEntity updateBookTitle(String title, String isbn) {
@@ -70,7 +74,7 @@ public class DefaultBookService implements BookService {
 
     @Override
     public List<BookEntity> searchByCategory(String category) {
-        return bookRepository.findByCategory(category);
+        return bookRepository.findByCategory(category.toUpperCase());
     }
 
     @Override
