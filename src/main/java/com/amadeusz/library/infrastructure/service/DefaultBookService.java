@@ -1,6 +1,5 @@
 package com.amadeusz.library.infrastructure.service;
 
-import com.amadeusz.library.application.bookitem.BookItem;
 import com.amadeusz.library.application.exceptions.NoBookInRepositoryException;
 import com.amadeusz.library.infrastructure.model.BookEntity;
 import com.amadeusz.library.infrastructure.model.mappers.BookEntityMapper;
@@ -26,15 +25,17 @@ public class DefaultBookService implements BookService {
     private BookEntityMapper mapper = new DefaultBookEntityMapper();
 
     @Override
-    public BookEntity add(BookEntity book) {
-        Book map = mapper.map(book);
-        System.out.println(map);
-        return bookRepository.saveAndFlush(book);
+    public BookEntity add(Book book) {
+/*        if(true){
+            throw new IllegalArgumentException("Exception");
+        }*/
+        BookEntity bookEntity = mapper.map(book);
+        return bookRepository.saveAndFlush(bookEntity);
     }
 
     @Override
     public BookEntity getByISBN(String isbn) {
-        Optional<BookEntity> byId = bookRepository.findById(isbn);
+        Optional<BookEntity> byId = bookRepository.findById(isbn.replaceAll("[^0-9]", ""));
         if(byId.isEmpty()){
             throw new NoBookInRepositoryException("Book of this ISBN is not in repository");
         }
@@ -48,6 +49,7 @@ public class DefaultBookService implements BookService {
 
     @Override
     public BookEntity updateBookTitle(String title, String isbn) {
+
         Optional<BookEntity> byId = bookRepository.findById(isbn);
         if (byId.isEmpty()){
             throw new NoBookInRepositoryException("Book of this ISBN not in repository");

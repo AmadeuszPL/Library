@@ -20,9 +20,7 @@ public class BookEntity {
         return isbn;
     }
 
-    public void setIsbn(String isbn) {
-        this.isbn = isbn.replaceAll("[^0-9]", "");
-    }
+    public void setIsbn(String isbn) { this.isbn = isbn; }
 
     public String getTitle() {
         return title;

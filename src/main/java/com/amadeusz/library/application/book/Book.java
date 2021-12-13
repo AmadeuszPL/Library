@@ -1,5 +1,11 @@
 package com.amadeusz.library.application.book;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+import java.util.Optional;
+
 public class Book {
 
     private final ISBN isbn;
@@ -14,6 +20,11 @@ public class Book {
         this.title = title;
         this.publicationYear = publicationYear;
         this.author = author;
+//        Optional<SubjectCategory> any =
+//                Arrays.stream(SubjectCategory.values()).filter(cat -> cat.equals(category)).findAny();
+//        if (any.isEmpty()){
+//            throw new IllegalArgumentException("Exception has occured");
+//        }
         this.category = category;
     }
 

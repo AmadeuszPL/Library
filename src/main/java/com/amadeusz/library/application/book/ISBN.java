@@ -2,16 +2,22 @@ package com.amadeusz.library.application.book;
 
 import com.amadeusz.library.application.exceptions.ISBNValidationException;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 public class ISBN {
 
     private final String value;
 
     private ISBN(String value) {
+        value = removeUnwantedChars(value);
         validate(value);
-        value = value.replace("-", "");
-        value = value.replace(" ", "");
         this.value = value;
+    }
+
+    private String removeUnwantedChars(String value) {
+        value = value.replaceAll("[^0-9]", "");
+        return value;
     }
 
     public static ISBN of(String value) {
@@ -30,9 +36,6 @@ public class ISBN {
     }
 
     private void validate(String value) {
-
-        value = value.replace("-", "");
-        value = value.replace(" ", "");
 
         if (value.length() != 10 && value.length() != 13) {
             throw new RuntimeException("Wrong ISBN lenght");

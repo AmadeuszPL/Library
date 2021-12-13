@@ -1,6 +1,5 @@
 package com.amadeusz.library.infrastructure.repository;
 
-import com.amadeusz.library.application.book.Book;
 import com.amadeusz.library.infrastructure.model.BookEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 

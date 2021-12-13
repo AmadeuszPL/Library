@@ -1,16 +1,15 @@
 package com.amadeusz.library.infrastructure.service;
 
+import com.amadeusz.library.application.book.Book;
 import com.amadeusz.library.infrastructure.model.BookEntity;
 
 import java.util.List;
 
 public interface BookService {
 
-    BookEntity add(BookEntity book);
+    BookEntity add(Book book);
 
     BookEntity getByISBN(String isbn);
-
-//    BookEntity updateBookData(BookEntity book);
 
     BookEntity updateBookTitle(String title, String isbn);
 
