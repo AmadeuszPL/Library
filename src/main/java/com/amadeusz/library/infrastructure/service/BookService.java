@@ -2,24 +2,26 @@ package com.amadeusz.library.infrastructure.service;
 
 import com.amadeusz.library.application.book.Book;
 import com.amadeusz.library.infrastructure.model.BookEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface BookService {
 
-    BookEntity add(Book book);
+    Book add(Book book);
 
     BookEntity getByISBN(String isbn);
 
     BookEntity updateBookTitle(String title, String isbn);
 
-    List<BookEntity> getAllBooks();
+    Page<BookEntity> getAllBooks(Pageable pageable);
 
-    List<BookEntity> searchByYear(int year);
+    Page<BookEntity> searchByYear(int year, Pageable pageable);
 
-    List<BookEntity> searchByAuthorName(String authorName);
+    Page<BookEntity> searchByAuthorName(String authorName, Pageable pageable);
 
-    List<BookEntity> searchByCategory(String category);
+    Page<BookEntity> searchByCategory(String category, Pageable pageable);
 
-    List<BookEntity> searchByTitle(String title);
+    Page<BookEntity> searchByTitle(String title, Pageable pageable);
 }

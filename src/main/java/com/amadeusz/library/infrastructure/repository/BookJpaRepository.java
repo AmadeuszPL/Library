@@ -1,18 +1,22 @@
 package com.amadeusz.library.infrastructure.repository;
 
 import com.amadeusz.library.infrastructure.model.BookEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 public interface BookJpaRepository extends JpaRepository<BookEntity, String> {
 
-    List<BookEntity> findByTitle(String title);
+    Page<BookEntity> findAll(Pageable pageable);
 
-    List<BookEntity> findByPublicationYear(int year);
+    Page<BookEntity> findByTitleLike(String title, Pageable pageable);
 
-    List<BookEntity> findByAuthorName(String name);
+    Page<BookEntity> findByPublicationYear(int year, Pageable pageable);
 
-    List<BookEntity> findByCategory(String category);
+    Page<BookEntity> findByAuthorName(String name, Pageable pageable);
+
+    Page<BookEntity> findByCategory(String category, Pageable pageable);
 
 }

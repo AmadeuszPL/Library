@@ -15,7 +15,8 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="Library" />
+          <factory-entry name="Library" value="9a1f5bf0-2af0-4ff1-ab3f-2262438de8a0" />
+          <factory-entry name="entityManagerFactory" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>
@@ -35,6 +36,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/test/groovy" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -109,18 +111,13 @@
     <orderEntry type="library" name="Maven: jakarta.xml.bind:jakarta.xml.bind-api:2.3.3" level="project" />
     <orderEntry type="library" name="Maven: jakarta.activation:jakarta.activation-api:1.2.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.assertj:assertj-core:3.21.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.hamcrest:hamcrest:2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.hamcrest:hamcrest:2.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter:5.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-commons:1.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.2" level="project" />
+    <orderEntry type="library" name="Maven: org.junit.jupiter:junit-jupiter-api:5.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-params:5.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.1" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.junit.platform:junit-platform-engine:1.8.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.junit.jupiter:junit-jupiter-engine:5.8.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-core:4.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: net.bytebuddy:byte-buddy-agent:1.11.22" level="project" />
-    <orderEntry type="library" scope="TEST" name="Maven: org.objenesis:objenesis:3.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.mockito:mockito-junit-jupiter:4.0.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.skyscreamer:jsonassert:1.5.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" level="project" />
@@ -128,5 +125,48 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.13" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.3.13" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.8.3" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.spockframework:spock-core:2.0-groovy-3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy:3.0.9" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.junit.platform:junit-platform-engine:1.8.1" level="project" />
+    <orderEntry type="library" name="Maven: org.opentest4j:opentest4j:1.2.0" level="project" />
+    <orderEntry type="library" name="Maven: org.junit.platform:junit-platform-commons:1.8.1" level="project" />
+    <orderEntry type="library" name="Maven: org.apiguardian:apiguardian-api:1.1.2" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.spockframework:spock-spring:2.0-groovy-3.0" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-ant:3.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.ant:ant:1.10.11" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.ant:ant-junit:1.10.11" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.ant:ant-launcher:1.10.11" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.apache.ant:ant-antlr:1.10.11" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-cli-picocli:3.0.9" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: info.picocli:picocli:4.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-console:3.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-datetime:3.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-docgenerator:3.0.9" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.thoughtworks.qdox:qdox:1.12.1" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-groovydoc:3.0.9" level="project" />
+    <orderEntry type="library" name="Maven: com.github.javaparser:javaparser-core:3.23.0" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-groovysh:3.0.9" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: jline:jline:2.14.6" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-jmx:3.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-json:3.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-jsr223:3.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-macro:3.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-nio:3.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-servlet:3.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-sql:3.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-swing:3.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-templates:3.0.9" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-test:3.0.9" level="project" />
+    <orderEntry type="library" name="Maven: junit:junit:4.13.2" level="project" />
+    <orderEntry type="library" name="Maven: org.hamcrest:hamcrest-core:2.2" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-test-junit5:3.0.9" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.junit.platform:junit-platform-launcher:1.8.1" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-testng:3.0.9" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.testng:testng:7.4.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: com.beust:jcommander:1.78" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Maven: org.webjars:jquery:3.5.1" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.groovy:groovy-xml:3.0.9" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: cglib:cglib-nodep:3.3.0" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.objenesis:objenesis:3.2" level="project" />
   </component>
 </module>

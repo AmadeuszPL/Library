@@ -4,9 +4,12 @@ import com.amadeusz.library.application.book.Book;
 import com.amadeusz.library.infrastructure.model.BookEntity;
 import com.amadeusz.library.infrastructure.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 import java.util.Map;
 
 @RestController
@@ -17,26 +20,26 @@ public class BookController {
     private BookService bookService;
 
     @PostMapping
-    public Book addOrUpdate(@RequestBody final Book book) {
-        return book;
+    public Book addOrUpdate(@Valid @RequestBody final Book book) {
+        return bookService.add(book);
     }
 
     @GetMapping
-    public List<BookEntity> search(@RequestParam(required = false, value = "year") Integer year,
-                                   @RequestParam(required = false, value = "author") String author,
-                                   @RequestParam(required = false, value = "category") String category,
-                                   @RequestParam(required = false, value = "title") String title) {
-        if (year != null) {
-            return bookService.searchByYear(year);
+    public Page<BookEntity> search(@RequestParam Map<String, String> paramMap,
+                                   @PageableDefault(sort = {"publicationYear"},
+                                           size = 5) Pageable pageable) {
+
+/*        if (sexcfdduper != null) {
+            return bookService.searchByYear(publicationYear, pageable);
         } else if (author != null) {
-            return bookService.searchByAuthorName(author);
+            return bookService.searchByAuthorName(author, pageable);
         } else if (category != null) {
-            return bookService.searchByCategory(category);
+            return bookService.searchByCategory(category, pageable);
         } else if (title != null) {
-            return bookService.searchByTitle(title);
-        } else {
-            return bookService.getAllBooks();
-        }
+            return bookService.searchByTitle(title, pageable);
+        } else {*/
+            return bookService.getAllBooks(pageable);
+/*        }*/
     }
 
     @GetMapping
