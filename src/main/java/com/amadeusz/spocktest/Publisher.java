@@ -1,13 +1,16 @@
 package com.amadeusz.spocktest;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
+@NoArgsConstructor
+@AllArgsConstructor
 public class Publisher {
 
     private List<Subscriber> subscribers = new ArrayList<>();
-
 
     public void add(Subscriber subscriber) {
         subscribers.add(subscriber);

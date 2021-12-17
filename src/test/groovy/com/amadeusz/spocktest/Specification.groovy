@@ -8,6 +8,7 @@ class FirstSpecification extends Specification {
     Shop shop
     def stack;
     static final PI = 3.141592654
+    Person person
 
 
     // runs once - before the first feature method
@@ -16,6 +17,7 @@ class FirstSpecification extends Specification {
     }
     //runs before every feature method
     def setup() {
+        person = Stub(Person)
         shop = Stub(Shop)
         stack = new Stack()
         assert stack.empty
@@ -66,9 +68,9 @@ class FirstSpecification extends Specification {
         given:
         def subscriber1 = Mock(Subscriber)
         def subscriber2 = Mock(Subscriber)
-        def publisher = new Publisher()
+        Publisher publisher = new Publisher()
 
-        def event = Mock(Event)
+        Event event = new Event(UUID.randomUUID(), "Testujemy")
 
         publisher.add(subscriber1)
         publisher.add(subscriber2)
@@ -77,8 +79,8 @@ class FirstSpecification extends Specification {
         publisher.fire(event)
 
         then:
-        1 * subscriber1.receive(event)
-        1 * subscriber2.receive(event)
+        1 * subscriber1._
+        1 * subscriber2._
     }
 
     //expect blocks
@@ -142,7 +144,7 @@ class FirstSpecification extends Specification {
         }
     }
 
-    def "should correctly count sum of two numbers"(){
+    def "should correctly count sum of two numbers"() {
         expect:
         d == a
 
@@ -228,8 +230,6 @@ class FirstSpecification extends Specification {
         b << [3, 4, 0]
         c << [3, 7, 0]
     }
-
-
 
 
     def "one plus one should equal two"() {

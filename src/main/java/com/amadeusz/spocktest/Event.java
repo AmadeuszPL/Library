@@ -1,31 +1,17 @@
 package com.amadeusz.spocktest;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.util.UUID;
 
+@NoArgsConstructor
+@AllArgsConstructor
 class Event {
 
-    UUID id;
-    String title;
-
-    public Event(UUID id, String title) {
-        this.id = id;
-        this.title = title;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
+    @Getter @Setter private UUID id;
+    @Getter @Setter private String title;
 
 }

@@ -4,7 +4,8 @@ import spock.lang.Specification
 import spock.util.mop.Use
 
 @Use(CoerceBazToBar)
-class Foo extends Specification {
+class Foo extends Specification
+{
     def foo(Bar bar) {
         expect:
         bar == Bar.FOO
