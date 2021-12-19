@@ -1,11 +1,10 @@
 package com.amadeusz.library.infrastructure.repository;
 
 import com.amadeusz.library.application.accounts.librarymembers.LibraryMember;
-import com.amadeusz.library.application.exceptions.IllegalOperationException;
+import com.amadeusz.library.exceptions.IllegalOperationException;
 import com.amadeusz.library.infrastructure.model.LibraryMemberEntity;
 import com.amadeusz.library.infrastructure.model.mappers.DefaultLibraryMemberMapper;
 import com.amadeusz.library.infrastructure.model.mappers.LibraryMemberMapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.Map;

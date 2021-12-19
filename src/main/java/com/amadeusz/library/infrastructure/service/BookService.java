@@ -2,10 +2,10 @@ package com.amadeusz.library.infrastructure.service;
 
 import com.amadeusz.library.application.book.Book;
 import com.amadeusz.library.infrastructure.model.BookEntity;
+import com.github.fge.jsonpatch.JsonPatch;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
+import org.springframework.http.ResponseEntity;
 
 public interface BookService {
 
@@ -13,7 +13,7 @@ public interface BookService {
 
     BookEntity getByISBN(String isbn);
 
-    BookEntity updateBookTitle(String title, String isbn);
+    ResponseEntity<BookEntity> updateBook(String isbn, JsonPatch patch);
 
     Page<BookEntity> getAllBooks(Pageable pageable);
 
@@ -24,4 +24,7 @@ public interface BookService {
     Page<BookEntity> searchByCategory(String category, Pageable pageable);
 
     Page<BookEntity> searchByTitle(String title, Pageable pageable);
+
+    void removeByISBN(String isbn);
+
 }

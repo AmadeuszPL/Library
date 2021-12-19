@@ -1,5 +1,6 @@
 package com.amadeusz.library.infrastructure;
 
+import com.amadeusz.library.exceptions.NoBookInRepositoryException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -23,5 +24,14 @@ class ApiExceptionHandler {
         exRe.setDescription(ex.getMessage());
         return ResponseEntity.badRequest().body(exRe);
     }
+
+    @ExceptionHandler(NoBookInRepositoryException.class)
+    public ResponseEntity<ExceptionResponse> response(NoBookInRepositoryException ex){
+        ExceptionResponse exRe = new ExceptionResponse();
+        exRe.setError(ex.getClass().getSimpleName());
+        exRe.setDescription(ex.getMessage());
+        return ResponseEntity.badRequest().body(exRe);
+    }
+
 
 }

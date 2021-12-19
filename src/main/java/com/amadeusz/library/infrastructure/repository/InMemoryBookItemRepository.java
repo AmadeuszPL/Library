@@ -1,11 +1,10 @@
 package com.amadeusz.library.infrastructure.repository;
 
 import com.amadeusz.library.application.bookitem.BookItem;
-import com.amadeusz.library.application.exceptions.NoBookInRepositoryException;
+import com.amadeusz.library.exceptions.NoBookInRepositoryException;
 import com.amadeusz.library.infrastructure.model.BookItemEntity;
 import com.amadeusz.library.infrastructure.model.mappers.BookItemEntityMapper;
 import com.amadeusz.library.infrastructure.model.mappers.DefaultBookItemEntityMapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;

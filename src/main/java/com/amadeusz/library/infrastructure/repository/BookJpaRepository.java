@@ -5,11 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
 public interface BookJpaRepository extends JpaRepository<BookEntity, String> {
-
-    Page<BookEntity> findAll(Pageable pageable);
 
     Page<BookEntity> findByTitleLike(String title, Pageable pageable);
 
@@ -18,5 +14,9 @@ public interface BookJpaRepository extends JpaRepository<BookEntity, String> {
     Page<BookEntity> findByAuthorName(String name, Pageable pageable);
 
     Page<BookEntity> findByCategory(String category, Pageable pageable);
+
+    Page<BookEntity> findAll(Pageable pageable);
+
+    void deleteByIsbn(String isbn);
 
 }

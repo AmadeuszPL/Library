@@ -8,8 +8,7 @@ import com.amadeusz.library.application.bookissue.BookLending;
 import com.amadeusz.library.application.bookissue.BookReservation;
 import com.amadeusz.library.application.bookitem.BookItem;
 import com.amadeusz.library.infrastructure.repository.BookItemRepository;
-import com.amadeusz.library.application.exceptions.IllegalOperationException;
-import org.springframework.stereotype.Service;
+import com.amadeusz.library.exceptions.IllegalOperationException;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

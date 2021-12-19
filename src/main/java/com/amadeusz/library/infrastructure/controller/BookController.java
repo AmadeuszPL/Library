@@ -1,12 +1,17 @@
 package com.amadeusz.library.infrastructure.controller;
 
 import com.amadeusz.library.application.book.Book;
+import com.amadeusz.library.exceptions.IllegalRequestException;
 import com.amadeusz.library.infrastructure.model.BookEntity;
+import com.amadeusz.library.infrastructure.repository.BookJpaRepository;
 import com.amadeusz.library.infrastructure.service.BookService;
+import com.github.fge.jsonpatch.JsonPatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -19,27 +24,41 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
+    //ADDED JUST FOR FAST TESTING
+    @Autowired
+    private BookJpaRepository bookRepository;
+
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Book addOrUpdate(@Valid @RequestBody final Book book) {
         return bookService.add(book);
     }
 
     @GetMapping
-    public Page<BookEntity> search(@RequestParam Map<String, String> paramMap,
-                                   @PageableDefault(sort = {"publicationYear"},
-                                           size = 5) Pageable pageable) {
+    public Page<BookEntity> search(@RequestParam Map<String, String> paramMap, @PageableDefault(sort = {
+            "publicationYear"}, size = 5) Pageable pageable) {
 
-/*        if (sexcfdduper != null) {
-            return bookService.searchByYear(publicationYear, pageable);
-        } else if (author != null) {
-            return bookService.searchByAuthorName(author, pageable);
-        } else if (category != null) {
-            return bookService.searchByCategory(category, pageable);
-        } else if (title != null) {
-            return bookService.searchByTitle(title, pageable);
-        } else {*/
+        if (paramMap.size() > 3) {
+            throw new IllegalRequestException("You can pass only one parameter + Pageable");
+        } else if (paramMap.isEmpty()) {
             return bookService.getAllBooks(pageable);
-/*        }*/
+        } else {
+            Map.Entry<String, String> entry = paramMap.entrySet().iterator().next();
+            String key = entry.getKey();
+            String value = entry.getValue();
+            switch (key) {
+                case ("year"):
+                    return bookService.searchByYear(Integer.parseInt(value), pageable);
+                case ("author"):
+                    return bookService.searchByAuthorName(value, pageable);
+                case ("category"):
+                    return bookService.searchByCategory(value, pageable);
+                case ("title"):
+                    return bookService.searchByTitle(value, pageable);
+                default:
+                    throw new IllegalRequestException("Cannot search by this parameter");
+            }
+        }
     }
 
     @GetMapping
@@ -48,14 +67,16 @@ public class BookController {
         return bookService.getByISBN(Isbn);
     }
 
-    @PostMapping
-    @RequestMapping("/updateBookTitle/")
-    public BookEntity updateBookTitle(@RequestBody Map<String, String> json) {
-        String title = json.get("title");
-        String isbn = json.get("isbn");
-        System.out.println(title);
-        System.out.println(isbn);
-        return bookService.updateBookTitle(title, isbn);
+    @DeleteMapping
+    @RequestMapping(value = "/{Isbn}"/*, method = RequestMethod.DELETE*/)
+    public void removeByIsbn(@PathVariable String Isbn) {
+        bookService.removeByISBN(Isbn);
+    }
+
+    @PatchMapping
+    @RequestMapping("/{Isbn}")
+    public ResponseEntity<BookEntity> updateBook(@RequestBody JsonPatch patch, @PathVariable String Isbn) {
+        return bookService.updateBook(Isbn, patch);
     }
 
 }

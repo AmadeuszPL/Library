@@ -1,11 +1,10 @@
 package com.amadeusz.library.infrastructure.repository;
 
 import com.amadeusz.library.application.book.Book;
-import com.amadeusz.library.application.exceptions.IllegalOperationException;
+import com.amadeusz.library.exceptions.IllegalOperationException;
 import com.amadeusz.library.infrastructure.model.BookEntity;
 import com.amadeusz.library.infrastructure.model.mappers.BookEntityMapper;
 import com.amadeusz.library.infrastructure.model.mappers.DefaultBookEntityMapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;

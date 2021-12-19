@@ -1,4 +1,4 @@
-package com.amadeusz.library.application.exceptions;
+package com.amadeusz.library.exceptions;
 
 public class ISBNValidationException extends RuntimeException {
 

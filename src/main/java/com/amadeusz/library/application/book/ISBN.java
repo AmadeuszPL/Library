@@ -1,9 +1,7 @@
 package com.amadeusz.library.application.book;
 
-import com.amadeusz.library.application.exceptions.ISBNValidationException;
+import com.amadeusz.library.exceptions.ISBNValidationException;
 import org.apache.commons.lang3.math.NumberUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 public class ISBN {
 

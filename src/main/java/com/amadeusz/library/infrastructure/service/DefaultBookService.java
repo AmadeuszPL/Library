@@ -1,18 +1,22 @@
 package com.amadeusz.library.infrastructure.service;
 
-import com.amadeusz.library.application.exceptions.NoBookInRepositoryException;
+import com.amadeusz.library.exceptions.NoBookInRepositoryException;
 import com.amadeusz.library.infrastructure.model.BookEntity;
 import com.amadeusz.library.infrastructure.model.mappers.BookEntityMapper;
 import com.amadeusz.library.infrastructure.model.mappers.DefaultBookEntityMapper;
 import com.amadeusz.library.infrastructure.repository.BookJpaRepository;
 import com.amadeusz.library.application.book.Book;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.github.fge.jsonpatch.JsonPatch;
+import com.github.fge.jsonpatch.JsonPatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service("bookService")
@@ -20,10 +24,6 @@ public class DefaultBookService implements BookService {
 
     @Autowired
     private BookJpaRepository bookRepository;
-
-    //    public DefaultBookService(BookRepository bookRepository) {
-//        this.bookRepository = bookRepository;
-//    }
 
     private BookEntityMapper mapper = new DefaultBookEntityMapper();
 
@@ -40,34 +40,32 @@ public class DefaultBookService implements BookService {
     @Override
     public BookEntity getByISBN(String isbn) {
         Optional<BookEntity> byId = bookRepository.findById(isbn.replaceAll("[^0-9]", ""));
-        if(byId.isEmpty()){
+        if (byId.isEmpty()) {
             throw new NoBookInRepositoryException("Book of this ISBN is not in repository");
         }
         return byId.get();
     }
 
-//    @Override
-//    public BookEntity updateBookData(BookEntity book) {
-//        return bookRepository.saveAndFlush(book);
-//    }
-
     @Override
-    public BookEntity updateBookTitle(String title, String isbn) {
+    public ResponseEntity<BookEntity> updateBook(String isbn, JsonPatch patch) {
+        try{
+            Optional<BookEntity> book = bookRepository.findById(isbn.replaceAll("[^0-9]", ""));
+            if (book.isEmpty()){
+                throw new CustomerNotFoundException("Update failed, customer not found");
+            } else {
+                BookEntity patchedBook = applyPatchToBook(patch, book.get());
+                bookRepository.saveAndFlush(patchedBook);
+                return ResponseEntity.ok(patchedBook);
+            }
 
-        Optional<BookEntity> byId = bookRepository.findById(isbn);
-        if (byId.isEmpty()){
-            throw new NoBookInRepositoryException("Book of this ISBN not in repository");
         }
-        BookEntity entity = byId.get();
-        entity.setTitle(title);
-        return bookRepository.saveAndFlush(entity);
+
+        return bookRepository.saveAndFlush(bookEntity);
     }
+
 
     @Override
     public Page<BookEntity> getAllBooks(Pageable pageable) {
-/*        if(true){
-            throw new RuntimeException("mus to super programista");
-        }*/
         return bookRepository.findAll(pageable);
     }
 
@@ -93,9 +91,14 @@ public class DefaultBookService implements BookService {
     }
 
     @Override
-    public String toString() {
-        return "BookService{" +
-                "bookRepository=" + bookRepository +
-                '}';
+    @Transactional
+    public void removeByISBN(String isbn) {
+        bookRepository.deleteByIsbn(isbn);
     }
+
+    @Override
+    public String toString() {
+        return "BookService{" + "bookRepository=" + bookRepository + '}';
+    }
+
 }

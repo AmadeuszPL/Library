@@ -3,12 +3,11 @@ package com.amadeusz.library.infrastructure.repository;
 import com.amadeusz.library.application.bookissue.BookIssue;
 import com.amadeusz.library.application.bookissue.BookLending;
 import com.amadeusz.library.application.bookissue.BookReservation;
-import com.amadeusz.library.application.exceptions.NoBookInRepositoryException;
+import com.amadeusz.library.exceptions.NoBookInRepositoryException;
 import com.amadeusz.library.infrastructure.model.BookLendingEntity;
 import com.amadeusz.library.infrastructure.model.BookReservationEntity;
 import com.amadeusz.library.infrastructure.model.mappers.BookIssueMapper;
 import com.amadeusz.library.infrastructure.model.mappers.DefaultBookIssueEntityMapper;
-import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.stream.Collectors;
