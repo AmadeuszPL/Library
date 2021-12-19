@@ -13,7 +13,7 @@ public interface BookService {
 
     BookEntity getByISBN(String isbn);
 
-    ResponseEntity<BookEntity> updateBook(String isbn, JsonPatch patch);
+    ResponseEntity<Book> updateBook(String isbn, Book book);
 
     Page<BookEntity> getAllBooks(Pageable pageable);
 

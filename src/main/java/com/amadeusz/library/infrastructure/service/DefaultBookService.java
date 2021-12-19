@@ -6,11 +6,6 @@ import com.amadeusz.library.infrastructure.model.mappers.BookEntityMapper;
 import com.amadeusz.library.infrastructure.model.mappers.DefaultBookEntityMapper;
 import com.amadeusz.library.infrastructure.repository.BookJpaRepository;
 import com.amadeusz.library.application.book.Book;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.fge.jsonpatch.JsonPatch;
-import com.github.fge.jsonpatch.JsonPatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,28 +44,19 @@ public class DefaultBookService implements BookService {
     }
 
     @Override
-    public ResponseEntity<BookEntity> updateBook(String isbn, JsonPatch patch) {
-        try{
-            Optional<BookEntity> book = bookRepository.findById(isbn.replaceAll("[^0-9]", ""));
-            if (book.isEmpty()){
+    public ResponseEntity<Book> updateBook(String isbn, Book book) {
+        try {
+            Optional<BookEntity> bookEntity = bookRepository.findById(isbn.replaceAll("[^0-9]", ""));
+            if (bookEntity.isEmpty()) {
                 throw new CustomerNotFoundException("Update failed, customer not found");
             } else {
-                BookEntity patchedBook = applyPatchToBook(patch, book.get());
+                BookEntity patchedBook = mapper.map(book);
                 bookRepository.saveAndFlush(patchedBook);
-                return ResponseEntity.ok(patchedBook);
+                return ResponseEntity.ok(book);
             }
-        } catch (JsonPatchException | JsonProcessingException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         } catch (CustomerNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
-    }
-
-    private BookEntity applyPatchToBook(JsonPatch patch, BookEntity targetEntity) throws JsonPatchException,
-            JsonProcessingException {
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode patched = patch.apply(objectMapper.convertValue(targetEntity, JsonNode.class));
-        return objectMapper.treeToValue(patched, BookEntity.class);
     }
 
 

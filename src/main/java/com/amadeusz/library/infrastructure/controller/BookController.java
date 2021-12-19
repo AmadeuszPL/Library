@@ -68,15 +68,15 @@ public class BookController {
     }
 
     @DeleteMapping
-    @RequestMapping(value = "/{Isbn}"/*, method = RequestMethod.DELETE*/)
+    @RequestMapping(value = "/{Isbn}", method = RequestMethod.DELETE)
     public void removeByIsbn(@PathVariable String Isbn) {
         bookService.removeByISBN(Isbn);
     }
 
     @PatchMapping
-    @RequestMapping("/{Isbn}")
-    public ResponseEntity<BookEntity> updateBook(@RequestBody JsonPatch patch, @PathVariable String Isbn) {
-        return bookService.updateBook(Isbn, patch);
+    @RequestMapping(value = "/{Isbn}", method = RequestMethod.PATCH)
+    public ResponseEntity<Book> updateBook(@RequestBody Book book, @PathVariable String Isbn) {
+        return bookService.updateBook(Isbn, book);
     }
 
 }
