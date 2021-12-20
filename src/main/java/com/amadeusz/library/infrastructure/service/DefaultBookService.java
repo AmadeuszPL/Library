@@ -22,7 +22,7 @@ public class DefaultBookService implements BookService {
     @Autowired
     private BookJpaRepository bookRepository;
 
-    private BookEntityMapper mapper = new DefaultBookEntityMapper();
+    private final BookEntityMapper mapper = new DefaultBookEntityMapper();
 
     @Override
     public Book add(Book book) {
@@ -89,7 +89,7 @@ public class DefaultBookService implements BookService {
     @Override
     @Transactional
     public void removeByISBN(String isbn) {
-        bookRepository.deleteByIsbn(isbn);
+        bookRepository.deleteByIsbn(isbn.replaceAll("[^0-9]", ""));
     }
 
     @Override

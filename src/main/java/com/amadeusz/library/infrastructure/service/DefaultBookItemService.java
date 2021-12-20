@@ -1,9 +1,8 @@
 package com.amadeusz.library.infrastructure.service;
 
-import com.amadeusz.library.infrastructure.repository.BookRepository;
+import com.amadeusz.library.infrastructure.repository.archive.BookRepository;
 import com.amadeusz.library.application.bookitem.BookItem;
 import com.amadeusz.library.infrastructure.repository.BookItemRepository;
-import org.springframework.stereotype.Service;
 
 import java.util.*;
 

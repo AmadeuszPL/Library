@@ -1,4 +1,4 @@
-package com.amadeusz.library.infrastructure.repository;
+package com.amadeusz.library.infrastructure.repository.archive;
 
 import com.amadeusz.library.application.book.Book;
 

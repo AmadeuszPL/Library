@@ -1,26 +1,15 @@
-import com.amadeusz.library.application.*;
 import com.amadeusz.library.application.accounts.Address;
 import com.amadeusz.library.application.accounts.Person;
 import com.amadeusz.library.application.accounts.librarymembers.LibraryMember;
-import com.amadeusz.library.infrastructure.service.AccountsService;
 import com.amadeusz.library.application.book.Author;
 import com.amadeusz.library.application.book.Book;
-import com.amadeusz.library.infrastructure.service.BookService;
 import com.amadeusz.library.application.book.ISBN;
-import com.amadeusz.library.infrastructure.service.IssueService;
-import com.amadeusz.library.application.bookitem.BookItem;
-import com.amadeusz.library.infrastructure.service.BookItemService;
-import com.amadeusz.library.application.bookitem.RackNumber;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
-import java.util.List;
 
 import static com.amadeusz.library.application.book.Book.SubjectCategory.*;
 
-public class Main {
+public class OldMainArchive {
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
 /*        LibraryConfiguration singleTonTest = appContext.getBean("libraryConfiguration",
                 LibraryConfiguration.class);

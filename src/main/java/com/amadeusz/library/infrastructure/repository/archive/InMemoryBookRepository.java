@@ -1,10 +1,11 @@
-package com.amadeusz.library.infrastructure.repository;
+package com.amadeusz.library.infrastructure.repository.archive;
 
 import com.amadeusz.library.application.book.Book;
 import com.amadeusz.library.exceptions.IllegalOperationException;
 import com.amadeusz.library.infrastructure.model.BookEntity;
 import com.amadeusz.library.infrastructure.model.mappers.BookEntityMapper;
 import com.amadeusz.library.infrastructure.model.mappers.DefaultBookEntityMapper;
+import com.amadeusz.library.infrastructure.repository.archive.BookRepository;
 
 import java.util.*;
 import java.util.stream.Collectors;

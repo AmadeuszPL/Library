@@ -5,7 +5,6 @@ import com.amadeusz.library.exceptions.IllegalRequestException;
 import com.amadeusz.library.infrastructure.model.BookEntity;
 import com.amadeusz.library.infrastructure.repository.BookJpaRepository;
 import com.amadeusz.library.infrastructure.service.BookService;
-import com.github.fge.jsonpatch.JsonPatch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
