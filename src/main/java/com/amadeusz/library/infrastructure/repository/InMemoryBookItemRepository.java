@@ -1,10 +1,10 @@
 package com.amadeusz.library.infrastructure.repository;
 
-import com.amadeusz.library.application.bookitem.BookItem;
-import com.amadeusz.library.exceptions.NoBookInRepositoryException;
-import com.amadeusz.library.infrastructure.model.BookItemEntity;
-import com.amadeusz.library.infrastructure.model.mappers.BookItemEntityMapper;
-import com.amadeusz.library.infrastructure.model.mappers.DefaultBookItemEntityMapper;
+import com.amadeusz.library.application.model.bookitem.BookItem;
+import com.amadeusz.library.application.exceptions.NoBookInRepositoryException;
+import com.amadeusz.library.infrastructure.repository.entities.BookItemEntity;
+import com.amadeusz.library.infrastructure.repository.entities.mappers.BookItemEntityMapper;
+import com.amadeusz.library.infrastructure.repository.entities.mappers.DefaultBookItemEntityMapper;
 
 import java.util.*;
 import java.util.stream.Collectors;

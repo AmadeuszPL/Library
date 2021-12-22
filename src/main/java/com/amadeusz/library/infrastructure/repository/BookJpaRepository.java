@@ -1,6 +1,6 @@
 package com.amadeusz.library.infrastructure.repository;
 
-import com.amadeusz.library.infrastructure.model.BookEntity;
+import com.amadeusz.library.infrastructure.repository.entities.BookEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

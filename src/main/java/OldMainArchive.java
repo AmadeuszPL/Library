@@ -1,11 +1,11 @@
-import com.amadeusz.library.application.accounts.Address;
-import com.amadeusz.library.application.accounts.Person;
-import com.amadeusz.library.application.accounts.librarymembers.LibraryMember;
-import com.amadeusz.library.application.book.Author;
-import com.amadeusz.library.application.book.Book;
-import com.amadeusz.library.application.book.ISBN;
+import com.amadeusz.library.application.model.accounts.Address;
+import com.amadeusz.library.application.model.accounts.Person;
+import com.amadeusz.library.application.model.accounts.librarymembers.LibraryMember;
+import com.amadeusz.library.application.model.book.Author;
+import com.amadeusz.library.application.model.book.Book;
+import com.amadeusz.library.application.model.book.ISBN;
 
-import static com.amadeusz.library.application.book.Book.SubjectCategory.*;
+import static com.amadeusz.library.application.model.book.Book.SubjectCategory.*;
 
 public class OldMainArchive {
 

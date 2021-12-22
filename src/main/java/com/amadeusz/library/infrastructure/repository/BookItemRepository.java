@@ -1,6 +1,6 @@
 package com.amadeusz.library.infrastructure.repository;
 
-import com.amadeusz.library.application.bookitem.BookItem;
+import com.amadeusz.library.application.model.bookitem.BookItem;
 
 import java.util.List;
 import java.util.UUID;

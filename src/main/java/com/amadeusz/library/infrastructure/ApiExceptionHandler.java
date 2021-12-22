@@ -1,6 +1,7 @@
 package com.amadeusz.library.infrastructure;
 
-import com.amadeusz.library.exceptions.NoBookInRepositoryException;
+import com.amadeusz.library.application.exceptions.CustomerNotFoundException;
+import com.amadeusz.library.application.exceptions.NoBookInRepositoryException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,6 +28,14 @@ class ApiExceptionHandler {
 
     @ExceptionHandler(NoBookInRepositoryException.class)
     public ResponseEntity<ExceptionResponse> response(NoBookInRepositoryException ex){
+        ExceptionResponse exRe = new ExceptionResponse();
+        exRe.setError(ex.getClass().getSimpleName());
+        exRe.setDescription(ex.getMessage());
+        return ResponseEntity.badRequest().body(exRe);
+    }
+
+    @ExceptionHandler(CustomerNotFoundException.class)
+    public ResponseEntity<ExceptionResponse> response(CustomerNotFoundException ex){
         ExceptionResponse exRe = new ExceptionResponse();
         exRe.setError(ex.getClass().getSimpleName());
         exRe.setDescription(ex.getMessage());

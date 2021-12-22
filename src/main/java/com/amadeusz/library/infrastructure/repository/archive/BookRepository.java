@@ -1,14 +1,12 @@
 package com.amadeusz.library.infrastructure.repository.archive;
 
-import com.amadeusz.library.application.book.Book;
+import com.amadeusz.library.application.model.book.Book;
 
 import java.util.List;
 
 public interface BookRepository {
 
     void create(Book book);
-
-    Book readByIsbn(String isbn);
 
     void update(Book book);
 

@@ -1,10 +1,10 @@
 package com.amadeusz.library.infrastructure.controller;
 
-import com.amadeusz.library.application.book.Book;
-import com.amadeusz.library.exceptions.IllegalRequestException;
-import com.amadeusz.library.infrastructure.model.BookEntity;
+import com.amadeusz.library.application.model.book.Book;
+import com.amadeusz.library.application.exceptions.IllegalRequestException;
+import com.amadeusz.library.infrastructure.repository.entities.BookEntity;
 import com.amadeusz.library.infrastructure.repository.BookJpaRepository;
-import com.amadeusz.library.infrastructure.service.BookService;
+import com.amadeusz.library.application.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,8 +34,9 @@ public class BookController {
     }
 
     @GetMapping
-    public Page<BookEntity> search(@RequestParam Map<String, String> paramMap, @PageableDefault(sort = {
-            "publicationYear"}, size = 5) Pageable pageable) {
+    public Page<Book> search(@RequestParam Map<String, String> paramMap,
+                             @PageableDefault(sort = {"publicationYear"},
+                                     size = 5) Pageable pageable) {
 
         if (paramMap.size() > 3) {
             throw new IllegalRequestException("You can pass only one parameter + Pageable");
@@ -74,8 +75,10 @@ public class BookController {
 
     @PatchMapping
     @RequestMapping(value = "/{Isbn}", method = RequestMethod.PATCH)
-    public ResponseEntity<Book> updateBook(@RequestBody Book book, @PathVariable String Isbn) {
-        return bookService.updateBook(Isbn, book);
+    public ResponseEntity<Book> updateBook(@RequestBody Book book,
+                                           @PathVariable String Isbn) {
+        Book book1 = bookService.updateBook(Isbn, book);
+        return ResponseEntity.ok(book1);
     }
 
 }

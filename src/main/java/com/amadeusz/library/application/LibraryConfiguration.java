@@ -1,10 +1,9 @@
 package com.amadeusz.library.application;
 
-import com.amadeusz.library.infrastructure.service.AccountsService;
-import com.amadeusz.library.infrastructure.service.BookService;
-import com.amadeusz.library.infrastructure.service.IssueService;
-import com.amadeusz.library.infrastructure.service.BookItemService;
-import org.springframework.stereotype.Service;
+import com.amadeusz.library.application.service.AccountsService;
+import com.amadeusz.library.application.service.BookService;
+import com.amadeusz.library.application.service.IssueService;
+import com.amadeusz.library.application.service.BookItemService;
 
 //@Service("libraryConfiguration")
 public class LibraryConfiguration {

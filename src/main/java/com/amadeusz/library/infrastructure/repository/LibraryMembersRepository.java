@@ -1,7 +1,6 @@
 package com.amadeusz.library.infrastructure.repository;
 
-import com.amadeusz.library.application.accounts.Account;
-import com.amadeusz.library.application.accounts.librarymembers.LibraryMember;
+import com.amadeusz.library.application.model.accounts.librarymembers.LibraryMember;
 
 import java.util.UUID;
 

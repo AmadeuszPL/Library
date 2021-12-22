@@ -1,10 +1,9 @@
 package com.amadeusz.library.infrastructure.repository;
 
-import com.amadeusz.library.application.bookissue.BookLending;
-import com.amadeusz.library.application.bookissue.BookReservation;
+import com.amadeusz.library.application.model.bookissue.BookLending;
+import com.amadeusz.library.application.model.bookissue.BookReservation;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface BookIssueRepository {
