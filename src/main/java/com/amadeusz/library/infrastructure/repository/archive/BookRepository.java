@@ -1,6 +1,7 @@
 package com.amadeusz.library.infrastructure.repository.archive;
 
 import com.amadeusz.library.application.model.book.Book;
+import com.amadeusz.library.infrastructure.repository.entities.BookEntity;
 
 import java.util.List;
 
@@ -19,4 +20,7 @@ public interface BookRepository {
     List<Book> searchByCategory(String category);
 
     List<Book> searchByTitle(String title);
+
+    BookEntity readByIsbn(String bookIsbn);
+
 }

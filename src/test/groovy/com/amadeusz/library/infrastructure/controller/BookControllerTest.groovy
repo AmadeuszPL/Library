@@ -20,20 +20,25 @@ class BookControllerTest extends Specification {
     @SpringBean
     BookService bookService = Mock()
 
-    //how to mock bookSerbice in bookcontroller
-    //BookService bookService =
-
-    def "when get is performed then the response has status 200"() {
+    def "when correct from controller view requests are asked should run methods on controller"() {
 
         when:
         mvc.perform(MockMvcRequestBuilders.get("/api/v1/books"))
+        mvc.perform(MockMvcRequestBuilders.get("/api/v1/books?year=2020"))
+        mvc.perform(MockMvcRequestBuilders.get("/api/v1/books?author=Adam Mickiewicz"))
+        mvc.perform(MockMvcRequestBuilders.get("/api/v1/books?category=NOVEL"))
+        mvc.perform(MockMvcRequestBuilders.get("/api/v1/books?title=Pan Tadeusz"))
+
 
         then:
         MockMvcResultMatchers.status().isOk()
         1 * bookService.getAllBooks(_)
+        1 * bookService.searchByYear(2020, _)
+        1 * bookService.searchByAuthorName("Adam Mickiewicz", _)
+        1 * bookService.searchByCategory("NOVEL", _)
+        1 * bookService.searchByTitle("Pan Tadeusz", _)
 
-        /*expect: "Status is 200"
-        mvc.perform(MockMvcRequestBuilders.get("/api/v1/books"))
-        .andExpect(MockMvcResultMatchers.status().isOk()) */
     }
+
+
 }

@@ -27,13 +27,13 @@ public class InMemoryBookRepository implements BookRepository {
     }
 
     @Override
-    public Book readByIsbn(String isbn) {
+    public BookEntity readByIsbn(String isbn) {
         Optional<BookEntity> bookEntity = Optional.ofNullable(bookCatalog.get(isbn));
         if (bookEntity.isEmpty()) {
             throw new IllegalOperationException("Book with this ISBN not in " +
                     "Book Repository");
         }
-        return mapper.map(bookEntity.get());
+        return bookEntity.get();
     }
 
     @Override
