@@ -1,15 +1,25 @@
 package com.amadeusz.library.application.model.accounts;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Person {
 
     private final String name;
-    private final Address adress;
+    private Address address;
     private final String email;
     private final String telephoneNumber;
-
-    public Person(String name, Address adress, String eMail, String telephoneNumber) {
+/*
+    public Person(@JsonProperty("name") String name,
+                  @JsonProperty("email") String eMail,
+                  @JsonProperty("telephoneNumber") String telephoneNumber) {
         this.name = name;
-        this.adress = adress;
+        this.email = eMail;
+        this.telephoneNumber = telephoneNumber;
+    }*/
+
+    public Person(String name, Address address, String eMail, String telephoneNumber) {
+        this.name = name;
+        this.address = address;
         this.email = eMail;
         this.telephoneNumber = telephoneNumber;
     }
@@ -18,8 +28,8 @@ public class Person {
         return name;
     }
 
-    public Address getAdress() {
-        return adress;
+    public Address getAddress() {
+        return address;
     }
 
     public String getEmail() {
@@ -28,6 +38,10 @@ public class Person {
 
     public String getTelephoneNumber() {
         return telephoneNumber;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
     @Override

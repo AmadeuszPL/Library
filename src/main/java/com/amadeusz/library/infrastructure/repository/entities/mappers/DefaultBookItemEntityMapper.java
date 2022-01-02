@@ -1,6 +1,7 @@
 package com.amadeusz.library.infrastructure.repository.entities.mappers;
 
 import com.amadeusz.library.application.model.bookitem.BookItem;
+import com.amadeusz.library.application.model.bookitem.RackNumber;
 import com.amadeusz.library.infrastructure.repository.entities.BookItemEntity;
 
 public class DefaultBookItemEntityMapper implements BookItemEntityMapper {
@@ -18,7 +19,8 @@ public class DefaultBookItemEntityMapper implements BookItemEntityMapper {
     @Override
     public BookItem map(BookItemEntity bookItemEntity){
         return new BookItem(bookItemEntity.getId(),
-                bookItemEntity.getBookIsbn(), bookItemEntity.getRackNumber(),
-                bookItemEntity.getBookItemStatus());
+                bookItemEntity.getBookIsbn(), new RackNumber(bookItemEntity.getRackNumber()),
+                BookItem.BookItemStatus.valueOf(bookItemEntity.getBookItemStatus())
+                );
     }
 }

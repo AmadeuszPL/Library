@@ -15,10 +15,10 @@ public class DefaultLibraryMemberMapper implements LibraryMemberMapper {
         entity.setLogin(libraryMember.getLogin());
         entity.setPassword(libraryMember.getPassword());
         entity.setPersonName(libraryMember.getPerson().getName());
-        entity.setStreet(libraryMember.getPerson().getAdress().getStreet());
-        entity.setCity(libraryMember.getPerson().getAdress().getCity());
-        entity.setZipCode(libraryMember.getPerson().getAdress().getZipCode());
-        entity.setCountry(libraryMember.getPerson().getAdress().getCountry());
+        entity.setStreet(libraryMember.getPerson().getAddress().getStreet());
+        entity.setCity(libraryMember.getPerson().getAddress().getCity());
+        entity.setZipCode(libraryMember.getPerson().getAddress().getZipCode());
+        entity.setCountry(libraryMember.getPerson().getAddress().getCountry());
         entity.setPersonEmail(libraryMember.getPerson().getEmail());
         entity.setPersonTelephoneNumber(libraryMember.getPerson().getTelephoneNumber());
         entity.setTotalBooksCheckedOut(libraryMember.getTotalBooksCheckedOut());

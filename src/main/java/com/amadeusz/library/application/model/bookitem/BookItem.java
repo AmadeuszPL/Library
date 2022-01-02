@@ -1,5 +1,6 @@
 package com.amadeusz.library.application.model.bookitem;
-import com.amadeusz.library.application.model.book.Book;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import net.sourceforge.barbecue.Barcode;
 import net.sourceforge.barbecue.BarcodeFactory;
 import net.sourceforge.barbecue.BarcodeImageHandler;
@@ -13,24 +14,22 @@ public class BookItem implements Comparable<BookItem> {
 
     private final UUID id;
     private final String bookIsbn;
-    private final RackNumber rackNumber;
+    private RackNumber rackNumber;
     private BookItemStatus bookItemStatus;
 
-
-    public BookItem(Book book, RackNumber rackNumber) {
-        String isbnStringValue = book.getIsbn().getValue();
+    public BookItem(@JsonProperty("bookIsbn") String bookIsbn,
+                    @JsonProperty("rackNumber") String rackNumber){
         this.id = UUID.randomUUID();
-        this.bookIsbn = isbnStringValue;
-        this.rackNumber = rackNumber;
+        this.bookIsbn = bookIsbn.replaceAll("[^0-9]", "");
+        this.rackNumber = new RackNumber(rackNumber);
         this.bookItemStatus = BookItemStatus.AVAILABLE;
     }
 
-    public BookItem(UUID bookItemId, String bookIsbn, String rackNumber,
-                    String bookItemStatus) {
-        this.id = bookItemId;
+    public BookItem(UUID id, String bookIsbn, RackNumber rackNumber, BookItemStatus bookItemStatus) {
+        this.id = id;
         this.bookIsbn = bookIsbn;
-        this.rackNumber = new RackNumber(rackNumber);
-        this.bookItemStatus = BookItemStatus.valueOf(bookItemStatus);
+        this.rackNumber = rackNumber;
+        this.bookItemStatus = bookItemStatus;
     }
 
     public UUID getId() {
@@ -45,11 +44,15 @@ public class BookItem implements Comparable<BookItem> {
         return rackNumber;
     }
 
+    public void setRackNumber(RackNumber rackNumber) {
+        this.rackNumber = rackNumber;
+    }
+
     public BookItemStatus getBookItemStatus() {
         return bookItemStatus;
     }
 
-    public void updateStatus(BookItemStatus status){
+    public void updateStatus(BookItemStatus status) {
         this.bookItemStatus = status;
     }
 
@@ -57,24 +60,20 @@ public class BookItem implements Comparable<BookItem> {
         this.bookItemStatus = BookItemStatus.LOANED;
     }
 
-    public void changeStatusToAvailable(){
+    public void changeStatusToAvailable() {
         this.bookItemStatus = BookItemStatus.AVAILABLE;
     }
 
     public void generateAndPrintBarcodeToFile(String isbn) throws Exception {
         Barcode barcode = BarcodeFactory.createCode128(isbn);
         BufferedImage image = BarcodeImageHandler.getImage(barcode);
-        File outputfile =
-                new File("barcodes/" + bookIsbn + ".png");
+        File outputfile = new File("barcodes/" + bookIsbn + ".png");
         ImageIO.write(image, "png", outputfile);
     }
 
     @Override
     public String toString() {
-        return "BookItem{" +
-                "id=" + id +
-                ", bookIsbn='" + bookIsbn + '\'' +
-                '}';
+        return "BookItem{" + "id=" + id + ", bookIsbn='" + bookIsbn + '\'' + '}';
     }
 
     @Override
@@ -83,10 +82,7 @@ public class BookItem implements Comparable<BookItem> {
     }
 
     public enum BookItemStatus {
-
-        AVAILABLE,
-        LOANED
-
+        AVAILABLE, LOANED
     }
 
 

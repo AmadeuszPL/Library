@@ -2,8 +2,6 @@ package com.amadeusz.library.infrastructure.controller;
 
 import com.amadeusz.library.application.model.book.Book;
 import com.amadeusz.library.application.exceptions.IllegalRequestException;
-import com.amadeusz.library.infrastructure.repository.entities.BookEntity;
-import com.amadeusz.library.infrastructure.repository.BookJpaRepository;
 import com.amadeusz.library.application.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,19 +21,15 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    //ADDED JUST FOR FAST TESTING
-    @Autowired
-    private BookJpaRepository bookRepository;
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Book addOrUpdate(@Valid @RequestBody final Book book) {
+    public Book addBook(@Valid @RequestBody final Book book) {
         return bookService.add(book);
     }
 
     @GetMapping
-    public Page<Book> search(@RequestParam Map<String, String> paramMap,
-                             @PageableDefault(sort = {"publicationYear"},
+    public Page<Book> searchBooks(@RequestParam Map<String, String> paramMap,
+                                  @PageableDefault(sort = {"publicationYear"},
                                      size = 5) Pageable pageable) {
 
         if (paramMap.size() > 3) {
@@ -63,13 +57,13 @@ public class BookController {
 
     @GetMapping
     @RequestMapping("/{Isbn}")
-    public BookEntity getByIsbn(@PathVariable String Isbn) {
+    public Book getBookByIsbn(@PathVariable String Isbn) {
         return bookService.getByISBN(Isbn);
     }
 
     @DeleteMapping
     @RequestMapping(value = "/{Isbn}", method = RequestMethod.DELETE)
-    public void removeByIsbn(@PathVariable String Isbn) {
+    public void removeBookByIsbn(@PathVariable String Isbn) {
         bookService.removeByISBN(Isbn);
     }
 

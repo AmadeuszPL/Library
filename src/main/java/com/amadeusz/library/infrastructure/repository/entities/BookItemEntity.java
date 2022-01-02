@@ -7,7 +7,7 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "book_bitems")
+@Table(name = "book_items")
 public class BookItemEntity {
 
     @Id

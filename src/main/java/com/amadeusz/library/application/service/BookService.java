@@ -9,7 +9,7 @@ public interface BookService {
 
     Book add(Book book);
 
-    BookEntity getByISBN(String isbn);
+    Book getByISBN(String isbn);
 
     Book updateBook(String isbn, Book book);
 

@@ -1,19 +1,18 @@
 package com.amadeusz.library.application.service;
 
-import com.amadeusz.library.application.model.bookitem.BookItem;
+import com.amadeusz.library.application.model.bookissue.BookLending;
+import com.amadeusz.library.application.model.bookissue.BookReservation;
 
 import java.util.UUID;
 
 public interface IssueService {
 
-    void lendBook(String isbn, UUID issuerId) throws Exception;
+    BookLending lendBook(String isbn, UUID issuerId);
 
-    void updateBookStatus(BookItem.BookItemStatus bookStatus, UUID bookId) throws Exception;
+    BookReservation reserveBook(String isbn, UUID issuerId);
 
-    void reserveBook(String isbn, UUID issuerId);
+    BookLending returnBook(UUID bookItemId);
 
-    void returnBook(UUID bookItemId);
-
-    void cancelReservation(String isbn, UUID issuerId);
+    BookReservation cancelReservation(String isbn, UUID issuerId);
 
 }

@@ -1,11 +1,13 @@
 package com.amadeusz.library.application.model.accounts.librarymembers.paymentfunctionality;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CreditCard {
 
     private final long cardNumber;
     private final CardType cardType;
 
-    public CreditCard(long cardNumber) {
+    public CreditCard(@JsonProperty("cardNumber") long cardNumber) {
         validate(cardNumber);
         this.cardType = CardType.detect(String.valueOf(cardNumber));
         if (cardType == CardType.UNKNOWN) {

@@ -3,6 +3,7 @@ package com.amadeusz.library.application.model.accounts.librarymembers;
 import com.amadeusz.library.application.model.accounts.Account;
 import com.amadeusz.library.application.model.accounts.Person;
 import com.amadeusz.library.application.model.accounts.librarymembers.paymentfunctionality.CreditCard;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -13,7 +14,10 @@ public class LibraryMember extends Account {
     private BigDecimal fine;
     private CreditCard card;
 
-    public LibraryMember(String login, String password, Person person) {
+
+    public LibraryMember(@JsonProperty("login") String login,
+                         @JsonProperty("password") String password,
+                         @JsonProperty("person") Person person) {
         super(login, password, person);
     }
 
@@ -76,8 +80,8 @@ public class LibraryMember extends Account {
     }
 
 
-    public void addCreditCard(long cardNumber) {
-        this.card = new CreditCard(cardNumber);
+    public void addCreditCard(CreditCard creditCard) {
+        this.card = creditCard;
     }
 
 }

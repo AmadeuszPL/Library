@@ -1,7 +1,8 @@
 package com.amadeusz.library.infrastructure;
 
 import com.amadeusz.library.application.exceptions.CustomerNotFoundException;
-import com.amadeusz.library.application.exceptions.NoBookInRepositoryException;
+import com.amadeusz.library.application.exceptions.IllegalOperationException;
+import com.amadeusz.library.application.exceptions.NoInRepositoryException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,8 +27,8 @@ class ApiExceptionHandler {
         return ResponseEntity.badRequest().body(exRe);
     }
 
-    @ExceptionHandler(NoBookInRepositoryException.class)
-    public ResponseEntity<ExceptionResponse> response(NoBookInRepositoryException ex){
+    @ExceptionHandler(NoInRepositoryException.class)
+    public ResponseEntity<ExceptionResponse> response(NoInRepositoryException ex){
         ExceptionResponse exRe = new ExceptionResponse();
         exRe.setError(ex.getClass().getSimpleName());
         exRe.setDescription(ex.getMessage());
@@ -36,6 +37,14 @@ class ApiExceptionHandler {
 
     @ExceptionHandler(CustomerNotFoundException.class)
     public ResponseEntity<ExceptionResponse> response(CustomerNotFoundException ex){
+        ExceptionResponse exRe = new ExceptionResponse();
+        exRe.setError(ex.getClass().getSimpleName());
+        exRe.setDescription(ex.getMessage());
+        return ResponseEntity.badRequest().body(exRe);
+    }
+
+    @ExceptionHandler(IllegalOperationException.class)
+    public ResponseEntity<ExceptionResponse> response(IllegalOperationException ex){
         ExceptionResponse exRe = new ExceptionResponse();
         exRe.setError(ex.getClass().getSimpleName());
         exRe.setDescription(ex.getMessage());

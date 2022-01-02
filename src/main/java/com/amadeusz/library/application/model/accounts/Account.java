@@ -47,4 +47,7 @@ public abstract class Account {
                 ", person=" + person +
                 "\n}";
     }
+
+    public static void main(String[] args) {
+    }
 }
