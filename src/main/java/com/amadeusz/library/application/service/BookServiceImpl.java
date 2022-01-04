@@ -83,8 +83,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public String toString() {
-        return "BookService{" + "bookRepository=" + bookRepository + '}';
+    public void removeAll() {
+        bookRepository.deleteAll();
     }
 
 }

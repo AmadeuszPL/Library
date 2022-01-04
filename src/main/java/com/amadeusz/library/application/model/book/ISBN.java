@@ -34,7 +34,7 @@ public class ISBN {
     private void validate(String value) {
 
         if (value.length() != 10 && value.length() != 13) {
-            throw new RuntimeException("Wrong ISBN lenght");
+            throw new ISBNValidationException("Wrong ISBN lenght");
         }
 
         if (value.length() == 10) {
@@ -48,7 +48,7 @@ public class ISBN {
 
         if (!NumberUtils.isParsable(isbn) &&
                 !(isbn.charAt(9) == 'X' && NumberUtils.isParsable(isbn.substring(0, 8)))) {
-            throw new RuntimeException("ISBN is not a number");
+            throw new ISBNValidationException("ISBN is not a number");
         }
         int test_value = 0;
 
@@ -92,7 +92,7 @@ public class ISBN {
     private void finalISBNtest(int test_value, int divided) {
 
         if (test_value % divided != 0) {
-            throw new RuntimeException("ISBN is not valid");
+            throw new ISBNValidationException("ISBN is not valid");
         }
     }
 

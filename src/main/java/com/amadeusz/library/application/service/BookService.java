@@ -25,4 +25,6 @@ public interface BookService {
 
     void removeByISBN(String isbn);
 
+    void removeAll();
+
 }
