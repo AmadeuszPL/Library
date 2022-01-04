@@ -1,8 +1,10 @@
 package com.amadeusz.library.application.model.book;
 
 import com.amadeusz.library.application.exceptions.ISBNValidationException;
+import lombok.Data;
 import org.apache.commons.lang3.math.NumberUtils;
 
+@Data
 public class ISBN {
 
     private final String value;
@@ -20,10 +22,6 @@ public class ISBN {
 
     public static ISBN of(String value) {
         return new ISBN(value);
-    }
-
-    public String getValue() {
-        return value;
     }
 
     @Override

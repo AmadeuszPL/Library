@@ -20,6 +20,4 @@ public class BookReservationEntity {
     private UUID issuerId;
     private String reservationStatus;
 
-
-
 }

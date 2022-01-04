@@ -4,6 +4,7 @@ import com.amadeusz.library.application.model.accounts.Account;
 import com.amadeusz.library.application.model.accounts.Person;
 import com.amadeusz.library.application.model.accounts.librarymembers.paymentfunctionality.CreditCard;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.UUID;
@@ -62,12 +63,12 @@ public class LibraryMember extends Account {
     }
 
     public void sendNotificationBookAvailable(UUID bookId) {
-        System.out.println("Sending message: \n Book with id: " + bookId +
+        System.err.println("Sending message: \n Book with id: " + bookId +
                 " is avaliable to rent. \nto email adress: " + this.getPerson().getEmail());
     }
 
     public void sendNotificationBookReturnedAfterTime(UUID bookId) {
-        System.out.println("Sending message: \n Book with id: " + bookId +
+        System.err.println("Sending message: \n Book with id: " + bookId +
                 " was returned after time" + this.getPerson().getEmail());
     }
 

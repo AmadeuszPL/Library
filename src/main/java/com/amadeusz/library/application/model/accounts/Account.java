@@ -1,7 +1,12 @@
 package com.amadeusz.library.application.model.accounts;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
 import java.util.UUID;
 
+@Data
+@AllArgsConstructor
 public abstract class Account {
 
     private final UUID id;
@@ -14,29 +19,6 @@ public abstract class Account {
         this.login = login;
         this.password = password;
         this.person = person;
-    }
-
-    public Account(UUID id, String login, String password, Person person) {
-        this.id = id;
-        this.login = login;
-        this.password = password;
-        this.person = person;
-    }
-
-    public Person getPerson() {
-        return person;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     @Override

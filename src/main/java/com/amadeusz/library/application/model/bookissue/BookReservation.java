@@ -11,14 +11,14 @@ public class BookReservation extends BookIssue {
     public BookReservation(UUID issueId, String bookIsbn, UUID issuerId,
                            LocalDateTime localDateTime,
                            ReservationStatus reservationStatus) {
-        super(issueId, issuerId, localDateTime);
+        super(issueId, localDateTime, issuerId);
         this.bookIsbn = bookIsbn;
         this.reservationStatus = reservationStatus;
     }
 
     public BookReservation(UUID issuerId, String bookIsbn) {
 
-        super(UUID.randomUUID(), issuerId, LocalDateTime.now());
+        super(UUID.randomUUID(), LocalDateTime.now(), issuerId);
         this.bookIsbn = bookIsbn;
         this.reservationStatus = ReservationStatus.PENDING;
     }

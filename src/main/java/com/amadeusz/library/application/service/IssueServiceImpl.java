@@ -107,7 +107,7 @@ public class IssueServiceImpl implements IssueService {
     }
 
     private void updateStatusOnBookItem(BookItem bookItem) {
-        bookItem.updateStatus(BookItem.BookItemStatus.AVAILABLE);
+        bookItem.setBookItemStatus(BookItem.BookItemStatus.AVAILABLE);
         bookItemService.updateBook(bookItem);
     }
 
@@ -119,7 +119,6 @@ public class IssueServiceImpl implements IssueService {
     private BookLending updateBookLendingStatus(BookLending bookLending) {
         bookLending.setLendingStatus(BookLending.LendingStatus.RETURNED);
         bookLending.setReturnDate(LocalDateTime.now());
-        System.err.println(bookLending);
         BookLendingEntity bookLendingEntity = lendingRepository.saveAndFlush(mapper.map(bookLending));
         return mapper.map(bookLendingEntity);
     }
@@ -240,7 +239,7 @@ public class IssueServiceImpl implements IssueService {
 
     public void updateBookStatus(BookItem.BookItemStatus bookStatus, UUID bookId) {
         BookItem bookItem = bookItemService.getById(bookId);
-        bookItem.updateStatus(bookStatus);
+        bookItem.setBookItemStatus(bookStatus);
         bookItemService.updateBook(bookItem);
     }
 

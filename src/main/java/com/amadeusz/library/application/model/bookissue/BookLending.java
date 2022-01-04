@@ -10,14 +10,14 @@ public class BookLending extends BookIssue {
     private final UUID bookItemId;
 
     public BookLending(UUID issueId, UUID bookItemId, UUID issuerId, LocalDateTime localDateTime, LendingStatus lendingStatus, LocalDateTime returnDate) {
-        super(issueId, issuerId, localDateTime);
+        super(issueId, localDateTime, issuerId);
         this.bookItemId = bookItemId;
         this.lendingStatus = lendingStatus;
         this.returnDate = returnDate;
     }
 
     public BookLending(UUID bookItemId, UUID issuerId) {
-        super(UUID.randomUUID(), issuerId, LocalDateTime.now());
+        super(UUID.randomUUID(), LocalDateTime.now(), issuerId);
         this.bookItemId = bookItemId;
         this.lendingStatus = LendingStatus.ACTIVE;
     }

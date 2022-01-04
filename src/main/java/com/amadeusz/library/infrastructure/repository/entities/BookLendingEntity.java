@@ -1,8 +1,6 @@
 package com.amadeusz.library.infrastructure.repository.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -22,7 +20,5 @@ public class BookLendingEntity {
     private UUID issuerId;
     private String lendingStatus;
     private LocalDateTime returnDate;
-
-
 
 }

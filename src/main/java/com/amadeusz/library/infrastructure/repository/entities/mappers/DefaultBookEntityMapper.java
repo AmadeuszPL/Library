@@ -22,8 +22,7 @@ public class DefaultBookEntityMapper implements BookEntityMapper {
 
     @Override
     public Book map(BookEntity bookEntity) {
-        return new Book(ISBN.of(bookEntity.getIsbn()),
-                bookEntity.getTitle(),
+        return new Book(ISBN.of(bookEntity.getIsbn()), bookEntity.getTitle(),
                 bookEntity.getPublicationYear(),
                 new Author(bookEntity.getAuthorName(),
                         bookEntity.getAuthorBirthYear()),
