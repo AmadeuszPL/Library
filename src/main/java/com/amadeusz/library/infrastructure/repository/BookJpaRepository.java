@@ -1,5 +1,6 @@
 package com.amadeusz.library.infrastructure.repository;
 
+import com.amadeusz.library.application.model.book.Book;
 import com.amadeusz.library.infrastructure.repository.entities.BookEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,4 +20,5 @@ public interface BookJpaRepository extends JpaRepository<BookEntity, String> {
 
     void deleteByIsbn(String isbn);
 
+    BookEntity saveAndFlush(BookEntity bookEntity);
 }

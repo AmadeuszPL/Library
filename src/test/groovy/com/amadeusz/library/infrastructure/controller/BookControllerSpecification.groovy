@@ -1,7 +1,6 @@
 package com.amadeusz.library.infrastructure.controller
 
 import com.amadeusz.library.application.service.BookService
-import com.amadeusz.library.application.service.BookServiceTest
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -13,7 +12,7 @@ import spock.lang.Specification
 
 @SpringBootTest
 @AutoConfigureMockMvc
-class BookControllerTest extends Specification {
+class BookControllerSpecification extends Specification {
 
     @Autowired
     protected MockMvc mvc

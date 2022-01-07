@@ -74,4 +74,9 @@ public class BookItemServiceImpl implements BookItemService {
         return loaned.stream().map(mapper::map).collect(Collectors.toList());
     }
 
+    @Override
+    public void removeAll(){
+        bookItemRepository.deleteAll();
+    }
+
 }

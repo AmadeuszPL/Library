@@ -6,6 +6,7 @@ import com.amadeusz.library.infrastructure.repository.entities.LibraryMemberEnti
 public interface LibraryMemberMapper {
 
     LibraryMemberEntity map(LibraryMember libraryMember);
+
     LibraryMember map(LibraryMemberEntity libraryMemberEntity);
 
 }

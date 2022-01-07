@@ -4,20 +4,17 @@ import com.amadeusz.library.application.exceptions.NoInRepositoryException
 import com.amadeusz.library.application.model.book.Author
 import com.amadeusz.library.application.model.book.Book
 import com.amadeusz.library.application.model.book.ISBN
-import com.amadeusz.library.infrastructure.repository.BookJpaRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.data.domain.PageRequest
 import spock.lang.Specification
 
 @SpringBootTest
-class BookServiceTest extends Specification {
+class BookServiceSpecification extends Specification {
 
     @Autowired
     BookService bookService
 
-    @Autowired
-    BookJpaRepository bookRepository
 
     def setup() {
         bookService.removeAll()
@@ -40,7 +37,7 @@ class BookServiceTest extends Specification {
                 new Author('Lucy Maud Montgomery', 1874), Book.SubjectCategory.NOVEL)
         Book anne3 = new Book(ISBN.of('978-92-95055-02-5'), 'Anne Of Green Gables', 1911,
                 new Author('Lucy Maud Montgomery', 1874), Book.SubjectCategory.NOVEL)
-        def pagedata = PageRequest.of(0,5)
+        def pagedata = PageRequest.of(0, 5)
 
         when:
         bookService.add(anne)
@@ -56,7 +53,7 @@ class BookServiceTest extends Specification {
         given:
         def anne2 = new Book(ISBN.of('0-19-853453-1'), 'Anne Of Green Gables', 1911,
                 new Author('Lucy Maud Montgomery', 1874), Book.SubjectCategory.NOVEL)
-        def pagedata = PageRequest.of(0,5)
+        def pagedata = PageRequest.of(0, 5)
 
         when:
         bookService.add(anne)
@@ -68,7 +65,7 @@ class BookServiceTest extends Specification {
 
     def 'should find one book by publicationYear '() {
         given:
-        def pagedata = PageRequest.of(0,5)
+        def pagedata = PageRequest.of(0, 5)
 
         when:
         bookService.add(anne)
@@ -79,7 +76,7 @@ class BookServiceTest extends Specification {
 
     def 'should find one book by category '() {
         given:
-        def pagedata = PageRequest.of(0,5)
+        def pagedata = PageRequest.of(0, 5)
 
         when:
         bookService.add(anne)
@@ -90,7 +87,7 @@ class BookServiceTest extends Specification {
 
     def 'should find one book by author name'() {
         given:
-        def pagedata = PageRequest.of(0,5)
+        def pagedata = PageRequest.of(0, 5)
 
         when:
         bookService.add(anne)
@@ -126,7 +123,6 @@ class BookServiceTest extends Specification {
         then:
         thrown(NoInRepositoryException)
     }
-
 
 
 }

@@ -21,10 +21,8 @@ public class DefaultBookIssueEntityMapper implements BookIssueMapper {
 
     @Override
     public BookLending map(BookLendingEntity bookLendingEntity) {
-        return new BookLending(bookLendingEntity.getLendingId(),
-                bookLendingEntity.getBookItemId(),
-                bookLendingEntity.getIssuerId(),
-                bookLendingEntity.getIssueDate(),
+        return new BookLending(bookLendingEntity.getLendingId(), bookLendingEntity.getBookItemId(),
+                bookLendingEntity.getIssuerId(), bookLendingEntity.getIssueDate(),
                 BookLending.LendingStatus.valueOf(bookLendingEntity.getLendingStatus()),
                 bookLendingEntity.getReturnDate());
     }
@@ -42,10 +40,9 @@ public class DefaultBookIssueEntityMapper implements BookIssueMapper {
 
     @Override
     public BookReservation map(BookReservationEntity bookReservationEntity) {
-        return new BookReservation(bookReservationEntity.getReservationId(),
-                bookReservationEntity.getBookIsbn(),
-                bookReservationEntity.getIssuerId(),
-                bookReservationEntity.getIssueDate(),
+        return new BookReservation(bookReservationEntity.getReservationId(), bookReservationEntity.getBookIsbn(),
+                bookReservationEntity.getIssuerId(), bookReservationEntity.getIssueDate(),
                 BookReservation.ReservationStatus.valueOf(bookReservationEntity.getReservationStatus()));
     }
+
 }

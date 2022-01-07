@@ -17,10 +17,10 @@ public class DefaultBookItemEntityMapper implements BookItemEntityMapper {
     }
 
     @Override
-    public BookItem map(BookItemEntity bookItemEntity){
-        return new BookItem(bookItemEntity.getId(),
-                bookItemEntity.getBookIsbn(), new RackNumber(bookItemEntity.getRackNumber()),
-                BookItem.BookItemStatus.valueOf(bookItemEntity.getBookItemStatus())
-                );
+    public BookItem map(BookItemEntity bookItemEntity) {
+        return new BookItem(bookItemEntity.getId(), bookItemEntity.getBookIsbn(),
+                new RackNumber(bookItemEntity.getRackNumber()),
+                BookItem.BookItemStatus.valueOf(bookItemEntity.getBookItemStatus()));
     }
+
 }

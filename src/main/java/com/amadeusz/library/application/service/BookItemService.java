@@ -26,4 +26,6 @@ public interface BookItemService {
 
     List<BookItem> readLoanedByIsbn(String isbn);
 
+    void removeAll();
+
 }

@@ -4,11 +4,12 @@ import com.amadeusz.library.application.model.book.Author;
 import com.amadeusz.library.application.model.book.Book;
 import com.amadeusz.library.application.model.book.ISBN;
 import com.amadeusz.library.infrastructure.repository.entities.BookEntity;
+import lombok.experimental.UtilityClass;
 
-public class DefaultBookEntityMapper implements BookEntityMapper {
+@UtilityClass
+public class DefaultBookEntityMapper {
 
-    @Override
-    public BookEntity map(Book book) {
+    public static BookEntity map(Book book) {
         Author author = book.getAuthor();
         BookEntity bookEntity = new BookEntity();
         bookEntity.setAuthorBirthYear(author.getBirthYear());
@@ -20,12 +21,9 @@ public class DefaultBookEntityMapper implements BookEntityMapper {
         return bookEntity;
     }
 
-    @Override
-    public Book map(BookEntity bookEntity) {
-        return new Book(ISBN.of(bookEntity.getIsbn()), bookEntity.getTitle(),
-                bookEntity.getPublicationYear(),
-                new Author(bookEntity.getAuthorName(),
-                        bookEntity.getAuthorBirthYear()),
+    public static Book map(BookEntity bookEntity) {
+        return new Book(ISBN.of(bookEntity.getIsbn()), bookEntity.getTitle(), bookEntity.getPublicationYear(),
+                new Author(bookEntity.getAuthorName(), bookEntity.getAuthorBirthYear()),
                 Book.SubjectCategory.valueOf(bookEntity.getCategory()));
     }
 

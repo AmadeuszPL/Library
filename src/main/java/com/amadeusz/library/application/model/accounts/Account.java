@@ -2,6 +2,7 @@ package com.amadeusz.library.application.model.accounts;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.util.UUID;
 
