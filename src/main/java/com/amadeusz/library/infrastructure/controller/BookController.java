@@ -55,20 +55,17 @@ public class BookController {
         }
     }
 
-    @GetMapping
-    @RequestMapping("/{Isbn}")
+    @GetMapping("/{Isbn}")
     public Book getBookByIsbn(@PathVariable String Isbn) {
         return bookService.getByISBN(Isbn);
     }
 
-    @DeleteMapping
-    @RequestMapping(value = "/{Isbn}", method = RequestMethod.DELETE)
+    @DeleteMapping("/{Isbn}")
     public void removeBookByIsbn(@PathVariable String Isbn) {
         bookService.removeByISBN(Isbn);
     }
 
-    @PatchMapping
-    @RequestMapping(value = "/{Isbn}", method = RequestMethod.PATCH)
+    @PatchMapping("/{Isbn}")
     public ResponseEntity<Book> updateBook(@RequestBody Book book,
                                            @PathVariable String Isbn) {
         Book book1 = bookService.updateBook(Isbn, book);

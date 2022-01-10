@@ -32,20 +32,17 @@ public class BookItemController {
         return bookItemService.getByIsbn(bookIsbn, pageable);
     }
 
-    @GetMapping
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     public BookItem getBookItemById(@PathVariable UUID id) {
         return bookItemService.getById(id);
     }
 
-    @DeleteMapping
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping( "/{id}")
     public void removeById(@PathVariable UUID id) {
         bookItemService.removeById(id);
     }
 
     @PatchMapping
-    @RequestMapping(method = RequestMethod.PATCH)
     public ResponseEntity<BookItem> updateBookItem(@RequestBody BookItem bookItem) {
         BookItem book1 = bookItemService.updateBook(bookItem);
         return ResponseEntity.ok(book1);

@@ -3,10 +3,12 @@ package com.amadeusz.library.infrastructure;
 import com.amadeusz.library.application.exceptions.CustomerNotFoundException;
 import com.amadeusz.library.application.exceptions.IllegalOperationException;
 import com.amadeusz.library.application.exceptions.NoInRepositoryException;
+import io.swagger.annotations.Api;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import springfox.documentation.annotations.ApiIgnore;
 
 @RestControllerAdvice
 class ApiExceptionHandler {

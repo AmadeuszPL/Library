@@ -18,28 +18,22 @@ public class IssueController {
     @Autowired
     private IssueService issueService;
 
-    @PostMapping
-    @Transactional
-    @RequestMapping("/lendBook")
+    @PostMapping("/lendBook")
     public BookLending lendBook(@Valid @RequestBody final IssueDTO issueDTO) {
         return issueService.lendBook(issueDTO.getBookIsbn(), issueDTO.getIssuerId());
     }
 
-    @PostMapping
-    @Transactional
-    @RequestMapping("/reserveBook")
+    @PostMapping("/reserveBook")
     public BookReservation reserveBook(@Valid @RequestBody final IssueDTO issueDTO) {
         return issueService.reserveBook(issueDTO.getBookIsbn(), issueDTO.getIssuerId());
     }
 
-    @PostMapping
-    @RequestMapping("/returnBook")
+    @PostMapping("/returnBook")
     public BookLending returnBook(@RequestParam UUID bookItemId) {
         return issueService.returnBook(bookItemId);
     }
 
-    @PostMapping
-    @RequestMapping("/cancelReservation")
+    @PostMapping("/cancelReservation")
     public BookReservation cancelReservation(@Valid @RequestBody final IssueDTO issueDTO) {
         return issueService.cancelReservation(issueDTO.getBookIsbn(), issueDTO.getIssuerId());
     }

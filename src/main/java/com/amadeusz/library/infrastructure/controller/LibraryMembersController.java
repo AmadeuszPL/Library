@@ -23,20 +23,17 @@ public class LibraryMembersController {
         return libraryMembersService.add(libraryMember);
     }
 
-    @GetMapping
-    @RequestMapping(value = "/{id}")
+    @GetMapping("/{id}")
     public LibraryMember getLibraryMemberById(@PathVariable UUID id) {
         return libraryMembersService.getById(id);
     }
 
-    @PostMapping
-    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    @PostMapping("/{id}")
     public CreditCard addCreditCard(@PathVariable UUID id, @Valid @RequestBody final CreditCard creditCard) {
         return libraryMembersService.addCreditCardToUser(id, creditCard);
     }
 
-    @DeleteMapping
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/{id}")
     public void removeById(@PathVariable UUID id) {
         libraryMembersService.removeById(id);
     }
