@@ -6,9 +6,14 @@ import com.amadeusz.library.application.model.book.Book
 import com.amadeusz.library.application.model.book.ISBN
 import com.amadeusz.library.infrastructure.repository.BookJpaRepository
 import com.amadeusz.library.infrastructure.repository.entities.BookEntity
+import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
+import org.springframework.data.util.Streamable
 import spock.lang.Specification
+
+import static org.springframework.data.domain.Page.*
+import static org.springframework.data.domain.Page.*
 
 class BookServiceUnitTests extends Specification {
 
@@ -97,6 +102,97 @@ class BookServiceUnitTests extends Specification {
         1 * bookRepository.findAll(pageable) >> returnedBooksEntities
         result == returnedBooks
 
+    }
+
+    def "should find Books by Publication Year"() {
+
+        given:
+        def anne = createAnne()
+        def anneEntity = createAnneEntity()
+        def pageable = Pageable.ofSize(5)
+
+        def pageReturnedByRepository = new PageImpl(List.of(anneEntity))
+        def pageReturnedByService = new PageImpl(List.of(anne))
+
+        when:
+        def result = bookService.searchByYear(1911, pageable)
+
+        then:
+        1 * bookRepository.findByPublicationYear(1911, pageable) >> pageReturnedByRepository
+        result == pageReturnedByService
+
+    }
+
+    def "bookService searchByAuthorName should return empty page when searching by AuthorName"() {
+
+        given:
+        def pageOfBooks = new PageImpl(new ArrayList<>())
+        def pageOfBookEntities = new PageImpl(new ArrayList<>())
+        def pageable = Pageable.ofSize(5)
+
+        when:
+        def result = bookService.searchByAuthorName("Janina", pageable)
+
+        then:
+        1 * bookRepository.findByAuthorName("Janina", pageable) >> pageOfBookEntities
+        result == pageOfBooks
+
+    }
+
+    def "bookService searchByCategory should find Book by Category"() {
+
+        given:
+        def anne = createAnne()
+        def anneEntity = createAnneEntity()
+        def pageable = Pageable.ofSize(5)
+
+        def pageReturnedByRepository = new PageImpl(List.of(anneEntity))
+        def pageReturnedByService = new PageImpl(List.of(anne))
+
+        when:
+        def result = bookService.searchByCategory(anne.getCategory().toString(), pageable)
+
+        then:
+        1 * bookRepository.findByCategory(anne.getCategory().toString(), pageable) >> pageReturnedByRepository
+        result == pageReturnedByService
+
+    }
+
+    def "bookService searchByTitle should find book by Title"() {
+
+        given:
+        def anne = createAnne()
+        def anneEntity = createAnneEntity()
+        def pageable = Pageable.ofSize(5)
+
+        def pageReturnedByRepository = new PageImpl(List.of(anneEntity))
+        def pageReturnedByService = new PageImpl(List.of(anne))
+
+        when:
+        def result = bookService.searchByTitle(anne.getTitle(), pageable)
+
+        then:
+        1 * bookRepository.findByTitleLike(anne.getTitle(), pageable) >> pageReturnedByRepository
+        result == pageReturnedByService
+
+    }
+
+    def "bookService removeALl should removeAll from repository"() {
+
+        when:
+        bookService.removeAll()
+
+        then:
+        1 * bookRepository.deleteAll()
+
+    }
+
+    def "bookService should remove book by ISBN"() {
+        when:
+        bookService.removeByISBN("9780075492047")
+
+        then:
+        1 * bookRepository.deleteByIsbn("9780075492047")
     }
 
 

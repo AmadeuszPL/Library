@@ -4,11 +4,13 @@ import com.amadeusz.library.application.exceptions.NoInRepositoryException;
 import com.amadeusz.library.infrastructure.repository.entities.BookEntity;
 import com.amadeusz.library.infrastructure.repository.BookJpaRepository;
 import com.amadeusz.library.application.model.book.Book;
-import com.amadeusz.library.infrastructure.repository.entities.mappers.*;
+import com.amadeusz.library.infrastructure.repository.entities.mappers.DefaultBookEntityMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import static com.amadeusz.library.infrastructure.repository.entities.mappers.DefaultBookEntityMapper.*;
 
 import java.util.Optional;
 
@@ -20,9 +22,9 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public Book add(Book book) {
-        BookEntity bookEntity = DefaultBookEntityMapper.map(book);
+        BookEntity bookEntity = map(book);
         BookEntity savedEntity = bookRepository.saveAndFlush(bookEntity);
-        return DefaultBookEntityMapper.map(savedEntity);
+        return map(savedEntity);
     }
 
     @Override
@@ -31,14 +33,14 @@ public class BookServiceImpl implements BookService {
         if (bookEntity.isEmpty()) {
             throw new NoInRepositoryException("Book of this ISBN is not in repository");
         }
-        return DefaultBookEntityMapper.map(bookEntity.get());
+        return map(bookEntity.get());
     }
 
     @Override
     public Book updateBook(String isbn, Book book) {
         getByISBN(isbn);
-        BookEntity bookEntity = bookRepository.saveAndFlush(DefaultBookEntityMapper.map(book));
-        return DefaultBookEntityMapper.map(bookEntity);
+        BookEntity bookEntity = bookRepository.saveAndFlush(map(book));
+        return map(bookEntity);
     }
 
     @Override
